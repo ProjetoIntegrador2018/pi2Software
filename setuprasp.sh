@@ -20,10 +20,11 @@ sudo apt-get install xclip
 sudo apt-get install xsel
 
 echo "Passo 3/5"
-sudo pip3 install -U Cython==0.28.2
+#sudo apt-get install cython
+sudo pip3 install Cython
 
 echo "Passo 4/5"
-sudo pip install git+https://github.com/kivy/kivy.git@master
+sudo pip3 install git+https://github.com/kivy/kivy.git@master
 
-echo "Passo 5/5"
-pip3 install pyaudio 
+#echo "Passo 5/5"
+#pip3 install pyaudio 
