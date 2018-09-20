@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "troca", "/home/pi/Desktop/troca"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = 1024
+    vb.memory = 1000
     vb.name = "raspberrypi-2"
     vb.gui = true
 
