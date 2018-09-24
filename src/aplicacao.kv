@@ -1,0 +1,50 @@
+<Gerenciador>:
+    name: 'ScreenManager'
+    BoxLayout:
+        orientation: 'horizontal'
+        columns: 1       
+        ScreenManager:
+			TelaInicial:
+			TelaAfinacao: 
+           
+<TelaInicial>:
+    name: 'telaInicial'
+    BoxLayout:
+        orientation: 'horizontal'
+        Menu:
+			
+		# Substituir pela funcao de opcoes principais (Afinar, afrouxar...)	
+        Button:
+            text: 'Proxima Tela'
+            on_release: root.parent.current = 'telaAfinacao'
+
+<TelaAfinacao>:
+	name: 'telaAfinacao'
+	BoxLayout:
+		orientation: 'vertical'
+		columns: 3
+		BoxLayout:
+			orientation: 'horizontal'
+			
+			# Substituir pela funcao de barra de progresso	
+			Label:
+				text: 'Barra de progresso'
+			Button:
+				text: 'Voltar'
+				on_release: root.parent.current = 'telaInicial'
+				
+		# Substituir pela funcao de notas e frequencia	
+		Label:
+			text: 'Notas e frequencia'
+		
+		# Substituir pela funcao de db	
+		Label:
+			text: 'Barra de DB'
+		
+<Menu>:
+	name: 'menu'
+	size_hint_x: 0.2
+	Label:
+		text:'O menu lateral \n vai aqui'
+			
+			
