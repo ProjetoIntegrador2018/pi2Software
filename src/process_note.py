@@ -3,10 +3,14 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.properties import StringProperty
+from kivy.core.text import LabelBase
 from math import log2, pow                                                                                                         
 import time
 import random
 from functools import partial
+
+
+LabelBase.register(name='DigitalFont',fn_regular="../font/digital-readout.heavy-oblique.ttf")
 
 class ToneLayout(FloatLayout):
     def __init__(self,**kwargs):
@@ -16,12 +20,14 @@ class ToneLayout(FloatLayout):
         self.musical_note = NoteLabel(text='', 
                                size_hint=(1, 2.5),
                                font_size= 200,
-                               color=(0,1,0,0))
+                               color=(0,1,0,0),
+                               font_name='DigitalFont')
 
         self.octave = NoteLabel(text='', 
                         size_hint=(1.40, 2),
                         font_size=50,
-                        color=(0,1,0,0))
+                        color=(0,1,0,0),
+                        font_name='DigitalFont')
         
         self.add_widget(self.musical_note)
         self.add_widget(self.octave)
