@@ -45,12 +45,13 @@
 			id: barra_db
 			cursor_image: 'assets/cursor_verde.png'
 			cursor_size: (100, 40)
-			background_width: 180
+			background_horizontal: 'assets/bg.png'
 			value: 0
 			range: (-50, 50)
 			step: 1
+			
 			on_value: root.show_db(*args)
-			on_value: root.test(*args)
+			on_value: root.change_db_cursor(*args)
 		
 <Menu>:
 	name: 'menu'
