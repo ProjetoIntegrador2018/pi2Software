@@ -36,10 +36,21 @@
 		# Substituir pela funcao de notas e frequencia	
 		Label:
 			text: 'Notas e frequencia'
+
 		
-		# Substituir pela funcao de db	
 		Label:
-			text: 'Barra de DB'
+			id: decibeis
+			text: '0'
+		Slider:
+			id: barra_db
+			cursor_image: 'assets/cursor_verde.png'
+			cursor_size: (100, 40)
+			background_width: 180
+			value: 0
+			range: (-50, 50)
+			step: 1
+			on_value: root.show_db(*args)
+			on_value: root.test(*args)
 		
 <Menu>:
 	name: 'menu'
