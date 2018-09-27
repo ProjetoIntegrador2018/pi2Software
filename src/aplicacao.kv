@@ -1,11 +1,7 @@
-<Gerenciador>:
-    name: 'ScreenManager'
-    BoxLayout:
-        orientation: 'horizontal'
-        columns: 1       
-        ScreenManager:
-			TelaInicial:
-			TelaAfinacao: 
+<Gerenciador>:      
+    ScreenManager:
+		TelaInicial:
+		TelaAfinacao: 
            
 <TelaInicial>:
     name: 'telaInicial'
@@ -23,16 +19,21 @@
 	BoxLayout:
 		orientation: 'vertical'
 		columns: 3
-		BoxLayout:
-			orientation: 'horizontal'
-			
-			# Substituir pela funcao de barra de progresso	
-			Label:
-				text: 'Barra de progresso'
-			Button:
-				text: 'Voltar'
-				on_release: root.parent.current = 'telaInicial'
-				
+		
+		Button:
+			text: "Voltar"
+			background_color: (0,0,0,0)
+			#on_release: root.parent.current = 'telaInicial'
+			on_release: root.confirm_return()
+			size_hint: (0.5,0.5)
+			pos: (0,root.y)
+			Image:
+				size_hint: (0.4,0.4)
+				center_x: self.parent.center_x -100
+        		center_y: self.parent.center_y
+				source:"../img/voltar.png"
+		Label:
+			text: 'Barra de progresso'
 		# Substituir pela funcao de notas e frequencia	
 		
 		ToneLayout:	
