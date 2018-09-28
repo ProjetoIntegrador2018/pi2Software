@@ -46,13 +46,16 @@
 			cursor_image: 'assets/cursor_verde.png'
 			cursor_size: (100, 40)
 			background_horizontal: 'assets/bg.png'
-			value: 0
+			value: root.mock_db_value()
 			range: (-50, 50)
 			step: 1
-			
 			on_value: root.show_db(*args)
 			on_value: root.change_db_cursor(*args)
-		
+			
+			on_touch_down: root.disable_touch_event()
+			on_touch_move: root.disable_touch_event()
+			on_touch_up: root.disable_touch_event()
+
 <Menu>:
 	name: 'menu'
 	size_hint_x: 0.2
