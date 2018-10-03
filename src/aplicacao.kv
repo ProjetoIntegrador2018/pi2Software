@@ -22,16 +22,35 @@
 	name: 'telaAfinacao'
 	BoxLayout:
 		orientation: 'vertical'
-		columns: 3
+		columns: 4
 		BoxLayout:
 			orientation: 'horizontal'
 			
-			# Substituir pela funcao de barra de progresso	
-			Label:
-				text: 'Barra de progresso'
 			Button:
 				text: 'Voltar'
 				on_release: root.parent.current = 'telaInicial'
+				size_hint: .2, 1
+
+			ProgressBar:
+				id: progress_bar
+				size_hint: .6, 1
+				value: 0
+				on_value: root.show_progress_bar(*args)
+				canvas:
+					BorderImage:
+						border: (8, 8, 8, 8)
+						pos: self.x, self.center_y - 8
+						size: self.width, 16
+						source: 'assets/progress_bar_bg.png'
+					BorderImage:
+						border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 8))] * 4
+						pos: self.x, self.center_y - 8
+						size: self.width * (self.value / float(self.max)) if self.max else 0, 16
+						source: 'assets/progress_bar.jpg'
+
+			Label:
+				id: progress
+				size_hint: .2, 1
 				
 		# Substituir pela funcao de notas e frequencia	
 		Label:
