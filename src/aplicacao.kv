@@ -36,6 +36,17 @@
 				size_hint: .6, 1
 				value: 0
 				on_value: root.show_progress_bar(*args)
+				canvas:
+					BorderImage:
+						border: (8, 8, 8, 8)
+						pos: self.x, self.center_y - 8
+						size: self.width, 16
+						source: 'assets/progress_bar_bg.png'
+					BorderImage:
+						border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 8))] * 4
+						pos: self.x, self.center_y - 8
+						size: self.width * (self.value / float(self.max)) if self.max else 0, 16
+						source: 'assets/progress_bar.jpg'
 
 			Label:
 				id: progress
