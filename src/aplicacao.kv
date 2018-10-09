@@ -77,8 +77,12 @@
 
 <Menu>:
 	name: 'menu'
-	size_hint_x: 0.2
-	Label:
-		text:'O menu lateral \n vai aqui'
-			
-			
+	size_hint: (0.2, 1)
+	BoxLayout:
+		orientation: 'horizontal'	
+		Button:
+			size_hint_y: 0.2
+			on_release: root.rasp_shutdown()
+			Image: 
+				source: 'assets/shutdown_icon.png'
+
