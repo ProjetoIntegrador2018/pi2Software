@@ -17,16 +17,16 @@ class ToneLayout(FloatLayout):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.update,1/1.)
 
-        self.musical_note = NoteLabel(text='', 
+        self.musical_note = NoteLabel(text='---',
                                size_hint=(1, 2.5),
-                               font_size= 200,
-                               color=(0,1,0,0),
+                               color=(0,1,0,1),
+                               font_size=200,
                                font_name='DigitalFont')
 
-        self.octave = NoteLabel(text='', 
+        self.octave = NoteLabel(text='---', 
                         size_hint=(1.40, 2),
                         font_size=50,
-                        color=(0,1,0,0),
+                        color=(0,1,0,1),
                         font_name='DigitalFont')
         
         self.add_widget(self.musical_note)
@@ -41,7 +41,7 @@ class ToneLayout(FloatLayout):
 class NoteLabel(Label):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.update,50)
+        #Clock.schedule_interval(self.update,50)
         self.aux_text = ''
 
     def setText(self, text):
