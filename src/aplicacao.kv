@@ -1,48 +1,53 @@
 <Gerenciador>:
-    name: 'ScreenManager'
-    BoxLayout:
-        orientation: 'horizontal'
-        columns: 1       
-        ScreenManager:
+	name: 'ScreenManager'
+	BoxLayout:
+		orientation: 'horizontal'
+		columns: 1
+       
+		ScreenManager:
 			TelaInicial:
 			TelaAfinacao: 
            
 <TelaInicial>:
 	name: 'telaInicial'
 	pos_hint:  {'x': 0, 'y': 0}
+	
 	Menu:
+	
 	BoxLayout:
 		orientation: 'vertical'
 		columns: 4
 		padding: [0, 10, 0, 10]
 		
 		Image:
-			pos_hint:  {'x': 0.1, 'y': -0.2}
+			pos_hint:  {'x': 0.15, 'y': -0.2}
 			source: 'assets/guitar_icon_grey.png'
 			size: 256, 256
 			padding: [0, 0, 0, 20]
 
 		Button:
-			pos_hint:  {'x': 0.35, 'y': 1}
+			pos_hint:  {'x': 0.45, 'y': 1}
 			size_hint: 0.45, 0.3
 			on_release: root.parent.current = 'telaAfinacao'
 			text: 'Afinar'
 		
 		Button:
-			pos_hint:  {'x': 0.35, 'y': 0.3}
+			pos_hint:  {'x': 0.45, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Afrouxar cordas'
 		
 		Button:
-			pos_hint:  {'x': 0.35, 'y': 0.3}
+			pos_hint:  {'x': 0.45, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Tensionar cordas'
 
 <TelaAfinacao>:
 	name: 'telaAfinacao'
+	
 	BoxLayout:
 		orientation: 'vertical'
 		columns: 4
+		
 		BoxLayout:
 			orientation: 'horizontal'
 			
@@ -56,12 +61,14 @@
 				size_hint: .6, 1
 				value: 0
 				on_value: root.show_progress_bar(*args)
+				
 				canvas:
 					BorderImage:
 						border: (8, 8, 8, 8)
 						pos: self.x, self.center_y - 8
 						size: self.width, 16
 						source: 'assets/progress_bar_bg.png'
+					
 					BorderImage:
 						border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 8))] * 4
 						pos: self.x, self.center_y - 8
@@ -75,11 +82,11 @@
 		# Substituir pela funcao de notas e frequencia	
 		Label:
 			text: 'Notas e frequencia'
-
 		
 		Label:
 			id: decibeis
 			text: '0'
+
 		Slider:
 			id: barra_db
 			cursor_image: 'assets/cursor_verde.png'
@@ -88,6 +95,7 @@
 			value: root.mock_db_value()
 			range: (-50, 50)
 			step: 1
+
 			on_value: root.show_db(*args)
 			on_value: root.change_db_cursor(*args)
 			
@@ -105,7 +113,7 @@
 		columns: 2
 
 		Button:
-			#on_release: root.rasp_shutdown()
+			on_release: root.rasp_shutdown()
 			size_hint_y: 0.2
 			Image: 
 				source: 'assets/shutdown_icon_grey.png'
