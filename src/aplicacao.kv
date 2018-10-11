@@ -1,24 +1,53 @@
-<Gerenciador>:      
-    ScreenManager:
-		TelaInicial:
-		TelaAfinacao: 
+<Gerenciador>:
+	name: 'ScreenManager'
+	BoxLayout:
+		orientation: 'horizontal'
+		columns: 1
+       
+		ScreenManager:
+			TelaInicial:
+			TelaAfinacao: 
            
 <TelaInicial>:
-    name: 'telaInicial'
-    BoxLayout:
-        orientation: 'horizontal'
-        Menu:
-			
-		# Substituir pela funcao de opcoes principais (Afinar, afrouxar...)	
-        Button:
-            text: 'Proxima Tela'
-            on_release: root.parent.current = 'telaAfinacao'
-
-<TelaAfinacao>:
-	name: 'telaAfinacao'
+	name: 'telaInicial'
+	pos_hint:  {'x': 0, 'y': 0}
+	
+	Menu:
+	
 	BoxLayout:
 		orientation: 'vertical'
 		columns: 4
+		padding: [0, 10, 0, 10]
+		
+		Image:
+			pos_hint:  {'x': 0.15, 'y': -0.2}
+			source: 'assets/guitar_icon_grey.png'
+			size: 256, 256
+			padding: [0, 0, 0, 20]
+
+		Button:
+			pos_hint:  {'x': 0.45, 'y': 1}
+			size_hint: 0.45, 0.3
+			on_release: root.parent.current = 'telaAfinacao'
+			text: 'Afinar'
+		
+		Button:
+			pos_hint:  {'x': 0.45, 'y': 0.3}
+			size_hint: 0.45, 0.3
+			text: 'Afrouxar cordas'
+		
+		Button:
+			pos_hint:  {'x': 0.45, 'y': 0.3}
+			size_hint: 0.45, 0.3
+			text: 'Tensionar cordas'
+
+<TelaAfinacao>:
+	name: 'telaAfinacao'
+	
+	BoxLayout:
+		orientation: 'vertical'
+		columns: 4
+		
 		BoxLayout:
 			orientation: 'horizontal'
 			
@@ -43,12 +72,14 @@
 				size_hint: .6, 1
 				value: 0
 				on_value: root.show_progress_bar(*args)
+				
 				canvas:
 					BorderImage:
 						border: (8, 8, 8, 8)
 						pos: self.x, self.center_y - 8
 						size: self.width, 16
 						source: 'assets/progress_bar_bg.png'
+					
 					BorderImage:
 						border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 8))] * 4
 						pos: self.x, self.center_y - 8
@@ -58,11 +89,8 @@
 			Label:
 				id: progress
 				size_hint: .2, 1
-
 		ToneLayout:	
 			size_hint: 1, 2
-
-
 		Label:
 			id: decibeis
 			text: '0'
@@ -75,6 +103,7 @@
 			value: root.mock_db_value()
 			range: (-50, 50)
 			step: 1
+
 			on_value: root.show_db(*args)
 			on_value: root.change_db_cursor(*args)
 			
@@ -84,8 +113,29 @@
 
 <Menu>:
 	name: 'menu'
-	size_hint_x: 0.2
-	Label:
-		text:'O menu lateral \n vai aqui'
-			
-			
+	size_hint_x: 0.15
+	pos_hint:  {'y': 0.15}
+	
+	BoxLayout:
+		orientation: 'vertical'
+		columns: 2
+
+		Button:
+			on_release: root.rasp_shutdown()
+			size_hint_y: 0.2
+			Image: 
+				source: 'assets/shutdown_icon_grey.png'
+				allow_stretch: True
+				keep_ratio: True
+				x: self.parent.width * 0.5 - self.width * 0.5
+				y: self.parent.height * 0.5 - self.height * 0.5	
+		
+		Button:
+			size_hint_y: 0.2
+			Image: 
+				source: 'assets/light_bulb_icon_grey.png'
+				allow_stretch: True
+				keep_ratio: True
+				x: self.parent.width * 0.5 - self.width * 0.5
+				y: self.parent.height * 0.5 - self.height * 0.5
+

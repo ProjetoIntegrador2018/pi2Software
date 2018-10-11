@@ -1,4 +1,5 @@
 import random
+import os
 
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -82,7 +83,10 @@ class TelaAfinacao(Screen):
         self.ids.progress_bar.value += 1        
         
 class Menu(Screen):
-    pass
+    
+    def rasp_shutdown(self, *args):
+        os.system('sudo shutdown now')
+        
 
 class Aplicacao(App):
     def build(self):
