@@ -20,12 +20,12 @@ class ToneLayout(FloatLayout):
         self.musical_note = NoteLabel(text='---',
                                size_hint=(1, 2.5),
                                color=(0,1,0,1),
-                               font_size=200,
+                               font_size=300,
                                font_name='DigitalFont')
 
         self.octave = NoteLabel(text='---', 
                         size_hint=(1.40, 2),
-                        font_size=50,
+                        font_size=100,
                         color=(0,1,0,1),
                         font_name='DigitalFont')
         
