@@ -51,11 +51,22 @@
 		BoxLayout:
 			orientation: 'horizontal'
 			
-			Button:
-				text: 'Voltar'
-				on_release: root.parent.current = 'telaInicial'
-				size_hint: .2, 1
+		#	Button:
+		#		text: 'Voltar'
+		#		on_release: root.parent.current = 'telaInicial'
+		#		size_hint: .2, 1
 
+			Button:
+				text: ""
+				background_color: (0,0,0,0)
+				on_release: root.confirm_return()
+				size_hint: (.2,1)
+				pos: (0,root.y)
+				Image:
+					center_x: self.parent.center_x -30
+        			center_y: self.parent.center_y
+					source:"../img/voltar.png"
+					
 			ProgressBar:
 				id: progress_bar
 				size_hint: .6, 1
@@ -78,11 +89,8 @@
 			Label:
 				id: progress
 				size_hint: .2, 1
-				
-		# Substituir pela funcao de notas e frequencia	
-		Label:
-			text: 'Notas e frequencia'
-		
+		ToneLayout:	
+			size_hint: 1, 2
 		Label:
 			id: decibeis
 			text: '0'
