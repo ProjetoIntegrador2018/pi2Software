@@ -1,3 +1,7 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+#: import SwapTransition kivy.uix.screenmanager.SwapTransition
+
+
 <Gerenciador>:
 	name: 'ScreenManager'
 	BoxLayout:
@@ -5,6 +9,8 @@
 		columns: 1
        
 		ScreenManager:
+			#transition: NoTransition()
+			transition: SwapTransition()
 			TelaInicial:
 			TelaAfinacao: 
            
@@ -27,8 +33,9 @@
 
 		Button:
 			pos_hint:  {'x': 0.45, 'y': 1}
-			size_hint: 0.45, 0.3
-			on_release: root.parent.current = 'telaAfinacao'
+			size_hint: 0.45, 0.3        
+			on_release:
+				root.parent.current = 'telaAfinacao'
 			text: 'Afinar'
 		
 		Button:
@@ -60,7 +67,7 @@
 				text: ""
 				background_color: (0,0,0,0)
 				on_release: root.confirm_return()
-				size_hint: (.2,1)
+				size_hint: (.2,9)
 				pos: (0,root.y)
 				Image:
 					center_x: self.parent.center_x -30
