@@ -1,3 +1,5 @@
+#:import hex kivy.utils.get_color_from_hex
+
 <Gerenciador>:
 	name: 'ScreenManager'
 	BoxLayout:
@@ -11,6 +13,14 @@
 <TelaInicial>:
 	name: 'telaInicial'
 	pos_hint:  {'x': 0, 'y': 0}
+	my_color: hex('#C0C0C0')
+
+	canvas:
+        Color:
+            rgba: self.my_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
 	
 	Menu:
 	
@@ -20,8 +30,9 @@
 		padding: [0, 10, 0, 10]
 		
 		Image:
+			id: logo_icon
 			pos_hint:  {'x': 0.15, 'y': -0.2}
-			source: 'assets/guitar_icon_grey.png'
+			source: 'assets/guitar_icon_black.png'
 			size: 256, 256
 			padding: [0, 0, 0, 20]
 
@@ -115,6 +126,13 @@
 	name: 'menu'
 	size_hint_x: 0.15
 	pos_hint:  {'y': 0.15}
+
+	canvas.before:
+		Color:
+			rgba: hex('#A0A0A0')
+		Rectangle:
+			pos: self.pos
+			size: self.size
 	
 	BoxLayout:
 		orientation: 'vertical'
@@ -124,16 +142,20 @@
 			on_release: root.rasp_shutdown()
 			size_hint_y: 0.2
 			Image: 
-				source: 'assets/shutdown_icon_grey.png'
+				id: shutdown_icon
+				source: 'assets/shutdown_icon_black.png'
 				allow_stretch: True
 				keep_ratio: True
 				x: self.parent.width * 0.5 - self.width * 0.5
 				y: self.parent.height * 0.5 - self.height * 0.5	
 		
 		Button:
+			id: theme
 			size_hint_y: 0.2
+			on_press: root.change_theme()
 			Image: 
-				source: 'assets/light_bulb_icon_grey.png'
+				id: theme_icon
+				source: 'assets/light_bulb_icon_black.png'
 				allow_stretch: True
 				keep_ratio: True
 				x: self.parent.width * 0.5 - self.width * 0.5

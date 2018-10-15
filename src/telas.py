@@ -14,14 +14,17 @@ import time
 from kivy.uix.slider import Slider
 from kivy.clock import Clock
 from kivy.uix.progressbar import ProgressBar
+from kivy.properties import ObjectProperty, ListProperty
+import kivy.utils as utils
+
 
 
 class Gerenciador(BoxLayout):
     pass
 
 class TelaInicial(Screen):
-    pass
-    
+    my_color = ListProperty(None)
+
 class TelaAfinacao(Screen):
 
     def __init__(self, **kwargs):
@@ -83,10 +86,27 @@ class TelaAfinacao(Screen):
         self.ids.progress_bar.value += 1        
         
 class Menu(Screen):
-    
+    light_theme = True
+    dark_theme = False
+
     def rasp_shutdown(self, *args):
         os.system('sudo shutdown now')
-        
+
+    def change_theme(self):
+        if self.light_theme:
+            self.ids.theme_icon.source = 'assets/light_bulb_icon_grey.png'
+            self.parent.ids.logo_icon.source = 'assets/guitar_icon_grey.png'
+            self.ids.shutdown_icon.source = 'assets/shutdown_icon_grey.png'
+            self.parent.my_color = utils.get_color_from_hex('#404040')
+            self.light_theme = False
+            self.dark_theme = True
+        elif self.dark_theme:
+            self.ids.theme_icon.source = 'assets/light_bulb_icon_black.png'
+            self.ids.shutdown_icon.source = 'assets/shutdown_icon_black.png'
+            self.parent.ids.logo_icon.source = 'assets/guitar_icon_black.png'
+            self.parent.my_color = utils.get_color_from_hex('#C0C0C0')
+            self.light_theme = True
+            self.dark_theme = False
 
 class Aplicacao(App):
     def build(self):
