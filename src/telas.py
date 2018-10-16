@@ -27,6 +27,8 @@ class TelaInicial(Screen):
 
 class TelaAfinacao(Screen):
 
+    my_color = ListProperty(None)
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.update, 1)
@@ -97,16 +99,25 @@ class Menu(Screen):
             self.ids.theme_icon.source = 'assets/light_bulb_icon_grey.png'
             self.parent.ids.logo_icon.source = 'assets/guitar_icon_grey.png'
             self.ids.shutdown_icon.source = 'assets/shutdown_icon_grey.png'
+            
+            # Cinza escuro
             self.parent.my_color = utils.get_color_from_hex('#404040')
+            
             self.light_theme = False
             self.dark_theme = True
         elif self.dark_theme:
             self.ids.theme_icon.source = 'assets/light_bulb_icon_black.png'
             self.ids.shutdown_icon.source = 'assets/shutdown_icon_black.png'
             self.parent.ids.logo_icon.source = 'assets/guitar_icon_black.png'
-            self.parent.my_color = utils.get_color_from_hex('#C0C0C0')
+            
+            # Cinza claro
+            self.parent.my_color = utils.get_color_from_hex('#E0E0E0')
+            
             self.light_theme = True
             self.dark_theme = False
+
+class MenuButton(Button):
+    pass
 
 class Aplicacao(App):
     def build(self):
