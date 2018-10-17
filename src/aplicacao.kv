@@ -1,3 +1,4 @@
+#:import hex kivy.utils.get_color_from_hex
 #: import NoTransition kivy.uix.screenmanager.NoTransition
 #: import SwapTransition kivy.uix.screenmanager.SwapTransition
 
@@ -18,39 +19,73 @@
 	name: 'telaInicial'
 	pos_hint:  {'x': 0, 'y': 0}
 	
+	# Cinza claro
+	my_color: hex('#E0E0E0')
+
+	canvas:
+        Color:
+            rgba: self.my_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	
 	Menu:
 	
 	BoxLayout:
 		orientation: 'vertical'
 		columns: 4
 		padding: [0, 10, 0, 10]
+		spacing: 15
 		
 		Image:
+			id: logo_icon
 			pos_hint:  {'x': 0.15, 'y': -0.2}
-			source: 'assets/guitar_icon_grey.png'
+			source: 'assets/guitar_icon_black.png'
 			size: 256, 256
 			padding: [0, 0, 0, 20]
 
 		Button:
-			pos_hint:  {'x': 0.45, 'y': 1}
-			size_hint: 0.45, 0.3        
-			on_release:
-				root.parent.current = 'telaAfinacao'
 			text: 'Afinar'
+			pos_hint:  {'x': 0.45, 'y': 1}
+			size_hint: 0.45, 0.3
+			on_release: root.parent.current = 'telaAfinacao'
+			background_normal: ''
+    		
+			# Azul
+			background_color: hex('#0075CE')
+			
 		
 		Button:
 			pos_hint:  {'x': 0.45, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Afrouxar cordas'
+			background_normal: ''
+    		
+			# Azul
+			background_color: hex('#0075CE')
 		
 		Button:
 			pos_hint:  {'x': 0.45, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Tensionar cordas'
+			background_normal: ''
+    		
+			# Azul
+			background_color: hex('#0075CE')
 
 <TelaAfinacao>:
 	name: 'telaAfinacao'
 	
+	# Cinza escuro
+	my_color: hex('#404040')
+
+	canvas:
+        Color:
+            rgba: self.my_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
 	BoxLayout:
 		orientation: 'vertical'
 		columns: 4
@@ -121,28 +156,52 @@
 <Menu>:
 	name: 'menu'
 	size_hint_x: 0.15
-	pos_hint:  {'y': 0.15}
+
+	canvas:
+		Color:
+			
+			# Cinza médio
+			rgba: hex('#808080')
+		Rectangle:
+			pos: self.pos
+			size: self.size
 	
-	BoxLayout:
+	FloatLayout:
 		orientation: 'vertical'
-		columns: 2
 
-		Button:
-			on_release: root.rasp_shutdown()
-			size_hint_y: 0.2
-			Image: 
-				source: 'assets/shutdown_icon_grey.png'
+		MenuButton:
+			pos_hint: {'y': .6}
+			size_hint_y: .6
+			on_press: root.change_theme()
+			
+			Image:
+				id: theme_icon
+				source: 'assets/light_bulb_icon_black.png'
 				allow_stretch: True
 				keep_ratio: True
-				x: self.parent.width * 0.5 - self.width * 0.5
-				y: self.parent.height * 0.5 - self.height * 0.5	
+				x: self.parent.x
+				y: self.parent.y
+				center: self.parent.center
 		
-		Button:
-			size_hint_y: 0.2
-			Image: 
-				source: 'assets/light_bulb_icon_grey.png'
+		MenuButton:
+			pos_hint: {'y': .8}
+			size_hint_y: .8
+			on_release: root.rasp_shutdown()
+			Image:
+				id: shutdown_icon
+				source: 'assets/shutdown_icon_black.png'
 				allow_stretch: True
 				keep_ratio: True
-				x: self.parent.width * 0.5 - self.width * 0.5
-				y: self.parent.height * 0.5 - self.height * 0.5
+				center: self.parent.center
+				x: self.parent.x
+				y: self.parent.y
 
+<MenuButton>:
+	canvas:
+		Color:
+			
+			# Cinza médio
+			rgba: hex('#808080')
+		Rectangle:
+			pos: self.pos
+			size: self.size
