@@ -18,6 +18,8 @@ from kivy.properties import ObjectProperty, ListProperty
 import kivy.utils as utils
 
 
+import store
+
 
 class Gerenciador(BoxLayout):
     pass
@@ -31,7 +33,7 @@ class TelaAfinacao(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.update, 1)
+        Clock.schedule_interval(self.update, 1/10)
         Clock.schedule_interval(self.update_progress_bar, 1/10)
         self.popup = None
 
@@ -57,7 +59,7 @@ class TelaAfinacao(Screen):
         self.manager.current = "telaInicial"
     
     def show_db(self, *args):
-        self.ids.decibeis.text = str(int(args[1])) + ' decibéis'
+        self.ids.decibeis.text = str(store.frequency) + ' Hz'
     
     def change_db_cursor(self, *args):
         if int(args[1]) < 0:
@@ -120,5 +122,9 @@ class MenuButton(Button):
     pass
 
 class Aplicacao(App):
+  #  def __init__(self, note, **kwargs):
+   #     super().__init__(**kwargs)
+     #   self.note = note
+
     def build(self):
         return Gerenciador()
