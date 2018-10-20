@@ -8,6 +8,7 @@
 	BoxLayout:
 		orientation: 'horizontal'
 		columns: 1
+		
        
 		ScreenManager:
 			#transition: NoTransition()
@@ -34,19 +35,30 @@
 	BoxLayout:
 		orientation: 'vertical'
 		columns: 4
-		padding: [0, 10, 0, 10]
+		
+		padding: [-10, -80, 10, 50]
 		spacing: 15
 		
+	
+		Label:
+		    text: 
+		        root.battery_level()
+			pos_hint:  {'x': 0.40, 'y': -1.9}
+			#size_hint: -0.5, 0.5
+
+			
 		Image:
 			id: logo_icon
-			pos_hint:  {'x': 0.15, 'y': -0.2}
+			pos_hint:  {'x': 0.1, 'y': -.5}
 			source: 'assets/guitar_icon_black.png'
 			size: 256, 256
 			padding: [0, 0, 0, 20]
+		
+		
 
 		Button:
 			text: 'Afinar'
-			pos_hint:  {'x': 0.45, 'y': 1}
+			pos_hint:  {'x': 0.35, 'y': 1}
 			size_hint: 0.45, 0.3
 			on_release: root.parent.current = 'telaAfinacao'
 			background_normal: ''
@@ -56,7 +68,7 @@
 			
 		
 		Button:
-			pos_hint:  {'x': 0.45, 'y': 0.3}
+			pos_hint:  {'x': 0.35, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Afrouxar cordas'
 			background_normal: ''
@@ -65,7 +77,7 @@
 			background_color: hex('#0075CE')
 		
 		Button:
-			pos_hint:  {'x': 0.45, 'y': 0.3}
+			pos_hint:  {'x': 0.35, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Tensionar cordas'
 			background_normal: ''
@@ -92,12 +104,19 @@
 		
 		BoxLayout:
 			orientation: 'horizontal'
+						
 			
 		#	Button:
 		#		text: 'Voltar'
 		#		on_release: root.parent.current = 'telaInicial'
 		#		size_hint: .2, 1
 
+            Label:
+		        text: 
+		            root.battery_level()
+			    pos_hint:  {'x': 0.40, 'y': -1.9}
+			    #size_hint: -0.5, 0.5
+			
 			Button:
 				text: ""
 				background_color: (0,0,0,0)
@@ -108,6 +127,7 @@
 					center_x: self.parent.center_x -30
         			center_y: self.parent.center_y
 					source:"../img/voltar.png"
+					
 					
 			ProgressBar:
 				id: progress_bar

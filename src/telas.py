@@ -24,6 +24,21 @@ class Gerenciador(BoxLayout):
 
 class TelaInicial(Screen):
     my_color = ListProperty(None)
+    
+    def battery_level(self):
+        while True:
+            proc = os.popen("acpi")
+            level = proc.readlines()
+            level = str(level)
+            level = level.replace(",", "")
+            level = level.replace("]", "")            
+            level = level.replace("'", "")
+            level = level.replace("n", "")
+            level = level[0:-1]
+            level = level.replace("", "")
+
+            level = level.split(" ")
+            return str("Battery "+level[3])
 
 class TelaAfinacao(Screen):
 
@@ -33,6 +48,7 @@ class TelaAfinacao(Screen):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.update, 1)
         Clock.schedule_interval(self.update_progress_bar, 1/10)
+        
         self.popup = None
 
     def confirm_return(self):
@@ -77,6 +93,8 @@ class TelaAfinacao(Screen):
         
     def update(self, *args):
         self.ids.barra_db.value = self.mock_db_value()
+
+
         
     def show_progress_bar(self, *args):
         self.ids.progress.text = str(int(self.ids.progress_bar.value)) + '% afinado'
@@ -85,8 +103,23 @@ class TelaAfinacao(Screen):
         if self.ids.progress_bar.value >= 100:
             self.ids.progress.text = 'Afinado!'
             return False
-        self.ids.progress_bar.value += 1        
+        self.ids.progress_bar.value += 1
         
+    def battery_level(self, *args):
+        proc = os.popen("acpi")
+        level = proc.readlines()
+        level = str(level)
+        level = level.replace(",", "")
+        level = level.replace("]", "")
+        level = level.replace("'", "")
+        level = level.replace("n", "")
+        level = level[0:-1]
+        level = level.replace("", "")
+        level = level.split(" ")
+        #this.update()
+        return str("Battery "+level[3])
+       
+           
 class Menu(Screen):
     light_theme = True
     dark_theme = False
