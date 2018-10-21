@@ -27,6 +27,8 @@ class TelaInicial(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.battery_level, 1)
+        Clock.schedule_interval(self.battery_level_icons, 1)
+
    
     def battery_level(self, *args):
         proc = os.popen("acpi")
@@ -39,9 +41,25 @@ class TelaInicial(Screen):
         level = level[0:-1]
         level = level.replace("", "")
         level = level.split(" ")
-        self.ids.battery.text = str("Battery "+level[3])
+        self.ids.battery.text = str(level[3])
         return self.ids.battery.text
 
+    def battery_level_icons(self, *args):
+        val = self.ids.battery.text.replace("%","")
+        if int(val) > 80:					
+            self.ids.icon_battery.source = 'assets/bateria100.png'
+        elif int(val) >= 60 and int(val) <= 79:
+            self.ids.icon_battery.source = 'assets/bateria70.png'
+        elif int(val) >= 40 and int(val) <= 59:
+            self.ids.icon_battery.source = 'assets/bateria50.png'
+        elif int(val) >= 20 and int(val) <= 39:
+            self.ids.icon_battery.source = 'assets/bateria20.png'
+        elif int(val) >= 0 and int(val) <= 19:
+            self.ids.icon_battery.source = 'assets/bateria0.png'
+        else:
+            pass
+
+       
 	
 class TelaAfinacao(Screen):
 
