@@ -14,9 +14,8 @@ import time
 from kivy.uix.slider import Slider
 from kivy.clock import Clock
 from kivy.uix.progressbar import ProgressBar
-from kivy.properties import ObjectProperty, ListProperty
+from kivy.properties import ObjectProperty, ListProperty, StringProperty
 import kivy.utils as utils
-
 
 
 class Gerenciador(BoxLayout):
@@ -24,7 +23,44 @@ class Gerenciador(BoxLayout):
 
 class TelaInicial(Screen):
     my_color = ListProperty(None)
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Clock.schedule_interval(self.battery_level, 1)
+        Clock.schedule_interval(self.battery_level_icons, 1)
 
+   
+    def battery_level(self, *args):
+        proc = os.popen("acpi")
+        level = proc.readlines()
+        level = str(level)
+        level = level.replace(",", "")
+        level = level.replace("]", "")            
+        level = level.replace("'", "")
+        level = level.replace("n", "")
+        level = level[0:-1]
+        level = level.replace("", "")
+        level = level.split(" ")
+        self.ids.battery.text = str(level[3])
+        return self.ids.battery.text
+
+    def battery_level_icons(self, *args):
+        val = self.ids.battery.text.replace("%","")
+        if int(val) > 80:					
+            self.ids.icon_battery.source = 'assets/bateria100.png'
+        elif int(val) >= 60 and int(val) <= 79:
+            self.ids.icon_battery.source = 'assets/bateria70.png'
+        elif int(val) >= 40 and int(val) <= 59:
+            self.ids.icon_battery.source = 'assets/bateria50.png'
+        elif int(val) >= 20 and int(val) <= 39:
+            self.ids.icon_battery.source = 'assets/bateria20.png'
+        elif int(val) >= 0 and int(val) <= 19:
+            self.ids.icon_battery.source = 'assets/bateria0.png'
+        else:
+            pass
+
+       
+	
 class TelaAfinacao(Screen):
 
     my_color = ListProperty(None)
@@ -33,6 +69,7 @@ class TelaAfinacao(Screen):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.update, 1)
         Clock.schedule_interval(self.update_progress_bar, 1/10)
+        
         self.popup = None
 
     def confirm_return(self):
@@ -77,6 +114,8 @@ class TelaAfinacao(Screen):
         
     def update(self, *args):
         self.ids.barra_db.value = self.mock_db_value()
+
+
         
     def show_progress_bar(self, *args):
         self.ids.progress.text = str(int(self.ids.progress_bar.value)) + '% afinado'
@@ -85,8 +124,9 @@ class TelaAfinacao(Screen):
         if self.ids.progress_bar.value >= 100:
             self.ids.progress.text = 'Afinado!'
             return False
-        self.ids.progress_bar.value += 1        
+        self.ids.progress_bar.value += 1
         
+           
 class Menu(Screen):
     light_theme = True
     dark_theme = False
