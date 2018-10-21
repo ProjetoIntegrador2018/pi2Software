@@ -14,9 +14,8 @@ import time
 from kivy.uix.slider import Slider
 from kivy.clock import Clock
 from kivy.uix.progressbar import ProgressBar
-from kivy.properties import ObjectProperty, ListProperty
+from kivy.properties import ObjectProperty, ListProperty, StringProperty
 import kivy.utils as utils
-
 
 
 class Gerenciador(BoxLayout):
@@ -25,21 +24,25 @@ class Gerenciador(BoxLayout):
 class TelaInicial(Screen):
     my_color = ListProperty(None)
     
-    def battery_level(self):
-        while True:
-            proc = os.popen("acpi")
-            level = proc.readlines()
-            level = str(level)
-            level = level.replace(",", "")
-            level = level.replace("]", "")            
-            level = level.replace("'", "")
-            level = level.replace("n", "")
-            level = level[0:-1]
-            level = level.replace("", "")
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Clock.schedule_interval(self.battery_level, 1)
+   
+    def battery_level(self, *args):
+        proc = os.popen("acpi")
+        level = proc.readlines()
+        level = str(level)
+        level = level.replace(",", "")
+        level = level.replace("]", "")            
+        level = level.replace("'", "")
+        level = level.replace("n", "")
+        level = level[0:-1]
+        level = level.replace("", "")
+        level = level.split(" ")
+        self.ids.battery.text = str("Battery "+level[3])
+        return self.ids.battery.text
 
-            level = level.split(" ")
-            return str("Battery "+level[3])
-
+	
 class TelaAfinacao(Screen):
 
     my_color = ListProperty(None)
@@ -105,20 +108,6 @@ class TelaAfinacao(Screen):
             return False
         self.ids.progress_bar.value += 1
         
-    def battery_level(self, *args):
-        proc = os.popen("acpi")
-        level = proc.readlines()
-        level = str(level)
-        level = level.replace(",", "")
-        level = level.replace("]", "")
-        level = level.replace("'", "")
-        level = level.replace("n", "")
-        level = level[0:-1]
-        level = level.replace("", "")
-        level = level.split(" ")
-        #this.update()
-        return str("Battery "+level[3])
-       
            
 class Menu(Screen):
     light_theme = True

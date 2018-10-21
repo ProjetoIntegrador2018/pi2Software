@@ -1,5 +1,4 @@
 #:import hex kivy.utils.get_color_from_hex
-#: import NoTransition kivy.uix.screenmanager.NoTransition
 #: import SwapTransition kivy.uix.screenmanager.SwapTransition
 
 
@@ -11,7 +10,6 @@
 		
        
 		ScreenManager:
-			#transition: NoTransition()
 			transition: SwapTransition()
 			TelaInicial:
 			TelaAfinacao: 
@@ -38,11 +36,10 @@
 		
 		padding: [-10, -80, 10, 50]
 		spacing: 15
-		
-	
-		Label:
-		    text: 
-		        root.battery_level()
+			
+        Label:
+            id: battery
+		    text: root.battery_level()
 			pos_hint:  {'x': 0.40, 'y': -1.9}
 			#size_hint: -0.5, 0.5
 
@@ -105,18 +102,7 @@
 		BoxLayout:
 			orientation: 'horizontal'
 						
-			
-		#	Button:
-		#		text: 'Voltar'
-		#		on_release: root.parent.current = 'telaInicial'
-		#		size_hint: .2, 1
-
-            Label:
-		        text: 
-		            root.battery_level()
-			    pos_hint:  {'x': 0.40, 'y': -1.9}
-			    #size_hint: -0.5, 0.5
-			
+         			
 			Button:
 				text: ""
 				background_color: (0,0,0,0)
