@@ -133,8 +133,9 @@
 				size_hint: .2, 1
 		ToneLayout:	
 			size_hint: 1, 2
+		
 		Label:
-			id: decibeis
+			id: frequency
 			text: '0'
 
 		Slider:
@@ -142,11 +143,11 @@
 			cursor_image: 'assets/cursor_verde.png'
 			cursor_size: (100, 40)
 			background_horizontal: 'assets/bg.png'
-			value: root.mock_db_value()
-			range: (-50, 50)
+			value: root.frequency_range()
+			range: (-330, 330)
 			step: 1
 
-			on_value: root.show_db(*args)
+			on_value: root.show_tuning_data(*args)
 			on_value: root.change_db_cursor(*args)
 			
 			on_touch_down: root.disable_touch_event()
