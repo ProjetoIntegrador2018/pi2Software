@@ -1,0 +1,4 @@
+pytest
+pyaudio
+numpy
+wave
