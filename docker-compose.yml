@@ -3,4 +3,4 @@ version: '3'
 services:
   tests:
     build: .
-    command: python3 -m pytest src/test_frequency.py
+    command: python3 -m pytest src/tests/test_frequency.py
