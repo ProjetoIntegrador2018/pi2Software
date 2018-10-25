@@ -16,7 +16,10 @@ from kivy.clock import Clock
 from kivy.uix.progressbar import ProgressBar
 from kivy.properties import ObjectProperty, ListProperty, StringProperty
 import kivy.utils as utils
+import time
 
+
+import store
 
 class Gerenciador(BoxLayout):
     pass
@@ -67,10 +70,12 @@ class TelaAfinacao(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.update, 1)
+        Clock.schedule_interval(self.update, 1/10)
         Clock.schedule_interval(self.update_progress_bar, 1/10)
         
         self.popup = None
+        self.cord = 0
+        self.timestep = 0
 
     def confirm_return(self):
         box = BoxLayout(orientation = 'vertical')
@@ -93,8 +98,8 @@ class TelaAfinacao(Screen):
         self.popup.dismiss()
         self.manager.current = "telaInicial"
     
-    def show_db(self, *args):
-        self.ids.decibeis.text = str(int(args[1])) + ' decibéis'
+    def show_tuning_data(self, *args):
+        self.ids.frequency.text = str(store.frequency) + ' Hz'+'         Corda: '+ str(self.cord)
     
     def change_db_cursor(self, *args):
         if int(args[1]) < 0:
@@ -104,18 +109,20 @@ class TelaAfinacao(Screen):
         else:
             self.ids.barra_db.cursor_image = 'assets/cursor_verde.png'
     
-    def mock_db_value(self):
-        while True:
-            self.ids.barra_db.value = random.randint(-50, 50)
-            return self.ids.barra_db.value
+    def frequency_range(self):
+        cord_values = [329,246,196,146,110,82]
+        self.ids.barra_db.value = int(store.frequency) - cord_values[self.cord]
+        if(self.timestep < time.time()):
+            if(self.ids.barra_db.value == 0):
+                self.cord = (self.cord+1)%6
+            self.timestep = time.time() + 3
+        return self.ids.barra_db.value
     
     def disable_touch_event(self):
         return 0
         
     def update(self, *args):
-        self.ids.barra_db.value = self.mock_db_value()
-
-
+        self.ids.barra_db.value = self.frequency_range()
         
     def show_progress_bar(self, *args):
         self.ids.progress.text = str(int(self.ids.progress_bar.value)) + '% afinado'
