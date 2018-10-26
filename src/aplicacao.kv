@@ -7,7 +7,6 @@
 	BoxLayout:
 		orientation: 'horizontal'
 		columns: 4
-		
        
 		ScreenManager:
 			transition: SwapTransition()
@@ -48,18 +47,14 @@
 		    Image:
 	            id: icon_battery
 			    pos_hint:  {'x': 0, 'y': 0}
-			    source: 'assets/bateria100.png'
-            
-
+			    source: 'assets/img/battery_100.png'
 			
 		Image:
 			id: logo_icon
 			pos_hint:  {'x': 0.1, 'y': -.5}
-			source: 'assets/guitar_icon_black.png'
+			source: 'assets/img/guitar_icon_black.png'
 			size: 256, 256
 			padding: [0, 0, 0, 20]
-		
-		
 
 		Button:
 			text: 'Afinar'
@@ -70,8 +65,7 @@
     		
 			# Azul
 			background_color: hex('#0075CE')
-			
-		
+
 		Button:
 			pos_hint:  {'x': 0.35, 'y': 0.3}
 			size_hint: 0.45, 0.3
@@ -109,8 +103,7 @@
 		
 		BoxLayout:
 			orientation: 'horizontal'
-						
-         			
+		
 			Button:
 				text: ""
 				background_color: (0,0,0,0)
@@ -120,9 +113,8 @@
 				Image:
 					center_x: self.parent.center_x -30
         			center_y: self.parent.center_y
-					source:"../img/voltar.png"
-					
-					
+					source:"assets/img/back_button.png"
+
 			ProgressBar:
 				id: progress_bar
 				size_hint: .6, 1
@@ -134,17 +126,18 @@
 						border: (8, 8, 8, 8)
 						pos: self.x, self.center_y - 8
 						size: self.width, 16
-						source: 'assets/progress_bar_bg.png'
+						source: 'assets/img/progress_bar_bg.png'
 					
 					BorderImage:
 						border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 8))] * 4
 						pos: self.x, self.center_y - 8
 						size: self.width * (self.value / float(self.max)) if self.max else 0, 16
-						source: 'assets/progress_bar.jpg'
+						source: 'assets/img/progress_bar.jpg'
 
 			Label:
 				id: progress
 				size_hint: .2, 1
+		
 		ToneLayout:	
 			size_hint: 1, 2
 		
@@ -154,9 +147,9 @@
 
 		Slider:
 			id: barra_db
-			cursor_image: 'assets/cursor_verde.png'
+			cursor_image: 'assets/img/cursor_green.png'
 			cursor_size: (100, 40)
-			background_horizontal: 'assets/bg.png'
+			background_horizontal: 'assets/img/slider_bg.png'
 			value: root.frequency_range()
 			range: (-330, 330)
 			step: 1
@@ -174,9 +167,9 @@
 
 	canvas:
 		Color:
-			
 			# Cinza médio
 			rgba: hex('#808080')
+		
 		Rectangle:
 			pos: self.pos
 			size: self.size
@@ -191,7 +184,7 @@
 			
 			Image:
 				id: theme_icon
-				source: 'assets/light_bulb_icon_black.png'
+				source: 'assets/img/light_bulb_icon_black.png'
 				allow_stretch: True
 				keep_ratio: True
 				x: self.parent.x
@@ -204,7 +197,7 @@
 			on_release: root.rasp_shutdown()
 			Image:
 				id: shutdown_icon
-				source: 'assets/shutdown_icon_black.png'
+				source: 'assets/img/shutdown_icon_black.png'
 				allow_stretch: True
 				keep_ratio: True
 				center: self.parent.center
@@ -214,9 +207,9 @@
 <MenuButton>:
 	canvas:
 		Color:
-			
 			# Cinza médio
 			rgba: hex('#808080')
+		
 		Rectangle:
 			pos: self.pos
 			size: self.size

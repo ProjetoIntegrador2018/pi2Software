@@ -50,15 +50,15 @@ class TelaInicial(Screen):
     def battery_level_icons(self, *args):
         val = self.ids.battery.text.replace("%","")
         if int(val) > 80:					
-            self.ids.icon_battery.source = 'assets/bateria100.png'
+            self.ids.icon_battery.source = 'assets/img/battery_100.png'
         elif int(val) >= 60 and int(val) <= 79:
-            self.ids.icon_battery.source = 'assets/bateria70.png'
+            self.ids.icon_battery.source = 'assets/img/battery_70.png'
         elif int(val) >= 40 and int(val) <= 59:
-            self.ids.icon_battery.source = 'assets/bateria50.png'
+            self.ids.icon_battery.source = 'assets/img/battery_50.png'
         elif int(val) >= 20 and int(val) <= 39:
-            self.ids.icon_battery.source = 'assets/bateria20.png'
+            self.ids.icon_battery.source = 'assets/img/battery_20.png'
         elif int(val) >= 0 and int(val) <= 19:
-            self.ids.icon_battery.source = 'assets/bateria0.png'
+            self.ids.icon_battery.source = 'assets/img/battery_0.png'
         else:
             pass
 
@@ -103,11 +103,11 @@ class TelaAfinacao(Screen):
     
     def change_db_cursor(self, *args):
         if int(args[1]) < 0:
-            self.ids.barra_db.cursor_image = 'assets/cursor_amarelo.png'
+            self.ids.barra_db.cursor_image = 'assets/img/cursor_yellow.png'
         elif(args[1]) > 0:
-            self.ids.barra_db.cursor_image = 'assets/cursor_vermelho.png'
+            self.ids.barra_db.cursor_image = 'assets/img/cursor_red.png'
         else:
-            self.ids.barra_db.cursor_image = 'assets/cursor_verde.png'
+            self.ids.barra_db.cursor_image = 'assets/img/cursor_green.png'
     
     def frequency_range(self):
         cord_values = [329,246,196,146,110,82]
@@ -143,9 +143,9 @@ class Menu(Screen):
 
     def change_theme(self):
         if self.light_theme:
-            self.ids.theme_icon.source = 'assets/light_bulb_icon_grey.png'
-            self.parent.ids.logo_icon.source = 'assets/guitar_icon_grey.png'
-            self.ids.shutdown_icon.source = 'assets/shutdown_icon_grey.png'
+            self.ids.theme_icon.source = 'assets/img/light_bulb_icon_grey.png'
+            self.parent.ids.logo_icon.source = 'assets/img/guitar_icon_grey.png'
+            self.ids.shutdown_icon.source = 'assets/img/shutdown_icon_grey.png'
             
             # Cinza escuro
             self.parent.my_color = utils.get_color_from_hex('#404040')
@@ -153,9 +153,9 @@ class Menu(Screen):
             self.light_theme = False
             self.dark_theme = True
         elif self.dark_theme:
-            self.ids.theme_icon.source = 'assets/light_bulb_icon_black.png'
-            self.ids.shutdown_icon.source = 'assets/shutdown_icon_black.png'
-            self.parent.ids.logo_icon.source = 'assets/guitar_icon_black.png'
+            self.ids.theme_icon.source = 'assets/img/light_bulb_icon_black.png'
+            self.ids.shutdown_icon.source = 'assets/img/shutdown_icon_black.png'
+            self.parent.ids.logo_icon.source = 'assets/img/guitar_icon_black.png'
             
             # Cinza claro
             self.parent.my_color = utils.get_color_from_hex('#E0E0E0')

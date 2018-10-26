@@ -12,7 +12,7 @@ import store
 
 
 
-LabelBase.register(name='DigitalFont',fn_regular="../font/digital-readout.heavy-oblique.ttf")
+LabelBase.register(name='DigitalFont',fn_regular="assets/font/digital-readout.heavy-oblique.ttf")
 
 class ToneLayout(FloatLayout):
     def __init__(self,**kwargs):
