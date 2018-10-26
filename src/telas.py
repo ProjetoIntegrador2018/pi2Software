@@ -17,9 +17,12 @@ from kivy.uix.progressbar import ProgressBar
 from kivy.properties import ObjectProperty, ListProperty, StringProperty
 import kivy.utils as utils
 import time
-
-
 import store
+from kivy.lang import Builder
+
+
+Builder.load_file('kv/aplicacao.kv')
+
 
 class Gerenciador(BoxLayout):
     pass

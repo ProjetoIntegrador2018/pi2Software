@@ -1,0 +1,16 @@
+#:import hex kivy.utils.get_color_from_hex
+#: import SwapTransition kivy.uix.screenmanager.SwapTransition
+#:include kv/tela_afinacao.kv
+#:include kv/tela_inicial.kv
+
+
+<Gerenciador>:
+	name: 'ScreenManager'
+	BoxLayout:
+		orientation: 'horizontal'
+		columns: 4
+       
+		ScreenManager:
+			transition: SwapTransition()
+			TelaInicial:
+			TelaAfinacao: 
