@@ -1,18 +1,14 @@
+import os
 import pytest
 import wave
 import pyaudio
 import numpy as np
-from detect_tone import comput_frequency
+from src.detect_tone import comput_frequency
 
 
 def get_sound_data(file):
     a_note = wave.wf = wave.open(file, 'rb')
     CHUNK = 2048 
-    audio = pyaudio.PyAudio()
-    stream = audio.open(format = pyaudio.paInt16,
-                channels = a_note.getnchannels(),
-                rate = a_note.getframerate(),
-                output = True)
 
     data = np.frombuffer(a_note.readframes(CHUNK), np.int16)   
     return data    
@@ -20,14 +16,14 @@ def get_sound_data(file):
 def test_comput_frequency():
 
     # Geting Data from wav files
-    data_440 = get_sound_data('tests/sound_sample/440hz.wav')
+    data_440 = get_sound_data('src/tests/sound_sample/440hz.wav')
 
-    data_82 = get_sound_data('tests/sound_sample/82.4hz.wav')
-    data_110 = get_sound_data('tests/sound_sample/110hz.wav')
-    data_146 = get_sound_data('tests/sound_sample/146.8hz.wav')
-    data_196 = get_sound_data('tests/sound_sample/196hz.wav')
-    data_246 = get_sound_data('tests/sound_sample/246.9hz.wav')
-    data_329 = get_sound_data('tests/sound_sample/329.6hz.wav')
+    data_82 = get_sound_data('src/tests/sound_sample/82.4hz.wav')
+    data_110 = get_sound_data('src/tests/sound_sample/110hz.wav')
+    data_146 = get_sound_data('src/tests/sound_sample/146.8hz.wav')
+    data_196 = get_sound_data('src/tests/sound_sample/196hz.wav')
+    data_246 = get_sound_data('src/tests/sound_sample/246.9hz.wav')
+    data_329 = get_sound_data('src/tests/sound_sample/329.6hz.wav')
 
     # Computing frequencys
     frequency_440 = comput_frequency(data_440)
