@@ -1,13 +1,13 @@
-<TelaInicial>:
-	name: 'telaInicial'
+<HomeScreen>:
+	name: 'homeScreen'
 	pos_hint:  {'x': 0, 'y': 0}
 	
-	# Cinza claro
-	my_color: hex('#E0E0E0')
+	# Light gray
+	background_color: hex('#E0E0E0')
 
 	canvas:
         Color:
-            rgba: self.my_color
+            rgba: self.background_color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -45,10 +45,10 @@
 			text: 'Afinar'
 			pos_hint:  {'x': 0.35, 'y': 1}
 			size_hint: 0.45, 0.3
-			on_release: root.parent.current = 'telaAfinacao'
+			on_release: root.parent.current = 'tuningScreen'
 			background_normal: ''
     		
-			# Azul
+			# Blue
 			background_color: hex('#0075CE')
 
 		Button:
@@ -57,7 +57,7 @@
 			text: 'Afrouxar cordas'
 			background_normal: ''
     		
-			# Azul
+			# Blue
 			background_color: hex('#0075CE')
 		
 		Button:
@@ -66,7 +66,7 @@
 			text: 'Tensionar cordas'
 			background_normal: ''
     		
-			# Azul
+			# Blue
 			background_color: hex('#0075CE')
 
 <Menu>:
@@ -75,7 +75,7 @@
 
 	canvas:
 		Color:
-			# Cinza médio
+			# Medium gray
 			rgba: hex('#808080')
 		
 		Rectangle:
@@ -103,6 +103,7 @@
 			pos_hint: {'y': .8}
 			size_hint_y: .8
 			on_release: root.rasp_shutdown()
+			
 			Image:
 				id: shutdown_icon
 				source: 'assets/img/shutdown_icon_black.png'
@@ -115,7 +116,7 @@
 <MenuButton>:
 	canvas:
 		Color:
-			# Cinza médio
+			# Medium gray
 			rgba: hex('#808080')
 		
 		Rectangle:

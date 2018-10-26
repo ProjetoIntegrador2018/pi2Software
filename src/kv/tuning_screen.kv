@@ -1,13 +1,14 @@
-<TelaAfinacao>:
-	name: 'telaAfinacao'
+<TuningScreen>:
+	name: 'tuningScreen'
 	
-	# Cinza escuro
-	my_color: hex('#404040')
+	# Dark gray
+	background_color: hex('#404040')
 
 	canvas:
         Color:
-            rgba: self.my_color
-        Rectangle:
+            rgba: self.background_color
+        
+		Rectangle:
             pos: self.pos
             size: self.size
 
@@ -24,6 +25,7 @@
 				on_release: root.confirm_return()
 				size_hint: (.2,9)
 				pos: (0,root.y)
+				
 				Image:
 					center_x: self.parent.center_x -30
         			center_y: self.parent.center_y
@@ -60,7 +62,7 @@
 			text: '0'
 
 		Slider:
-			id: barra_db
+			id: db_bar
 			cursor_image: 'assets/img/cursor_green.png'
 			cursor_size: (100, 40)
 			background_horizontal: 'assets/img/slider_bg.png'
