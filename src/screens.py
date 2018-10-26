@@ -17,22 +17,25 @@ from kivy.uix.progressbar import ProgressBar
 from kivy.properties import ObjectProperty, ListProperty, StringProperty
 import kivy.utils as utils
 import time
-
-
 import store
+from kivy.lang import Builder
 
-class Gerenciador(BoxLayout):
+
+Builder.load_file('kv/application.kv')
+
+
+class Manager(BoxLayout):
     pass
 
-class TelaInicial(Screen):
-    my_color = ListProperty(None)
+
+class HomeScreen(Screen):
+    background_color = ListProperty(None)
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.battery_level, 1)
         Clock.schedule_interval(self.battery_level_icons, 1)
 
-   
     def battery_level(self, *args):
         proc = os.popen("acpi")
         level = proc.readlines()
@@ -50,23 +53,21 @@ class TelaInicial(Screen):
     def battery_level_icons(self, *args):
         val = self.ids.battery.text.replace("%","")
         if int(val) > 80:					
-            self.ids.icon_battery.source = 'assets/bateria100.png'
+            self.ids.icon_battery.source = 'assets/img/battery_100.png'
         elif int(val) >= 60 and int(val) <= 79:
-            self.ids.icon_battery.source = 'assets/bateria70.png'
+            self.ids.icon_battery.source = 'assets/img/battery_70.png'
         elif int(val) >= 40 and int(val) <= 59:
-            self.ids.icon_battery.source = 'assets/bateria50.png'
+            self.ids.icon_battery.source = 'assets/img/battery_50.png'
         elif int(val) >= 20 and int(val) <= 39:
-            self.ids.icon_battery.source = 'assets/bateria20.png'
+            self.ids.icon_battery.source = 'assets/img/battery_20.png'
         elif int(val) >= 0 and int(val) <= 19:
-            self.ids.icon_battery.source = 'assets/bateria0.png'
+            self.ids.icon_battery.source = 'assets/img/battery_0.png'
         else:
             pass
 
-       
 	
-class TelaAfinacao(Screen):
-
-    my_color = ListProperty(None)
+class TuningScreen(Screen):
+    background_color = ListProperty(None)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -96,33 +97,33 @@ class TelaAfinacao(Screen):
 
     def goToInit(self):
         self.popup.dismiss()
-        self.manager.current = "telaInicial"
+        self.manager.current = "homeScreen"
     
     def show_tuning_data(self, *args):
         self.ids.frequency.text = str(store.frequency) + ' Hz'+'         Corda: '+ str(self.cord)
     
     def change_db_cursor(self, *args):
         if int(args[1]) < 0:
-            self.ids.barra_db.cursor_image = 'assets/cursor_amarelo.png'
+            self.ids.db_bar.cursor_image = 'assets/img/cursor_yellow.png'
         elif(args[1]) > 0:
-            self.ids.barra_db.cursor_image = 'assets/cursor_vermelho.png'
+            self.ids.db_bar.cursor_image = 'assets/img/cursor_red.png'
         else:
-            self.ids.barra_db.cursor_image = 'assets/cursor_verde.png'
+            self.ids.db_bar.cursor_image = 'assets/img/cursor_green.png'
     
     def frequency_range(self):
         cord_values = [329,246,196,146,110,82]
-        self.ids.barra_db.value = int(store.frequency) - cord_values[self.cord]
+        self.ids.db_bar.value = int(store.frequency) - cord_values[self.cord]
         if(self.timestep < time.time()):
-            if(self.ids.barra_db.value == 0):
+            if(self.ids.db_bar.value == 0):
                 self.cord = (self.cord+1)%6
             self.timestep = time.time() + 3
-        return self.ids.barra_db.value
+        return self.ids.db_bar.value
     
     def disable_touch_event(self):
         return 0
         
     def update(self, *args):
-        self.ids.barra_db.value = self.frequency_range()
+        self.ids.db_bar.value = self.frequency_range()
         
     def show_progress_bar(self, *args):
         self.ids.progress.text = str(int(self.ids.progress_bar.value)) + '% afinado'
@@ -132,7 +133,7 @@ class TelaAfinacao(Screen):
             self.ids.progress.text = 'Afinado!'
             return False
         self.ids.progress_bar.value += 1
-        
+     
            
 class Menu(Screen):
     light_theme = True
@@ -143,22 +144,22 @@ class Menu(Screen):
 
     def change_theme(self):
         if self.light_theme:
-            self.ids.theme_icon.source = 'assets/light_bulb_icon_grey.png'
-            self.parent.ids.logo_icon.source = 'assets/guitar_icon_grey.png'
-            self.ids.shutdown_icon.source = 'assets/shutdown_icon_grey.png'
+            self.ids.theme_icon.source = 'assets/img/light_bulb_icon_grey.png'
+            self.parent.ids.logo_icon.source = 'assets/img/guitar_icon_grey.png'
+            self.ids.shutdown_icon.source = 'assets/img/shutdown_icon_grey.png'
             
-            # Cinza escuro
-            self.parent.my_color = utils.get_color_from_hex('#404040')
+            # Dark gray
+            self.parent.background_color = utils.get_color_from_hex('#404040')
             
             self.light_theme = False
             self.dark_theme = True
         elif self.dark_theme:
-            self.ids.theme_icon.source = 'assets/light_bulb_icon_black.png'
-            self.ids.shutdown_icon.source = 'assets/shutdown_icon_black.png'
-            self.parent.ids.logo_icon.source = 'assets/guitar_icon_black.png'
+            self.ids.theme_icon.source = 'assets/img/light_bulb_icon_black.png'
+            self.ids.shutdown_icon.source = 'assets/img/shutdown_icon_black.png'
+            self.parent.ids.logo_icon.source = 'assets/img/guitar_icon_black.png'
             
-            # Cinza claro
-            self.parent.my_color = utils.get_color_from_hex('#E0E0E0')
+            # Light gray
+            self.parent.background_color = utils.get_color_from_hex('#E0E0E0')
             
             self.light_theme = True
             self.dark_theme = False
@@ -166,6 +167,6 @@ class Menu(Screen):
 class MenuButton(Button):
     pass
 
-class Aplicacao(App):
+class Application(App):
     def build(self):
-        return Gerenciador()
+        return Manager()

@@ -1,0 +1,78 @@
+<TuningScreen>:
+	name: 'tuningScreen'
+	
+	# Dark gray
+	background_color: hex('#404040')
+
+	canvas:
+        Color:
+            rgba: self.background_color
+        
+		Rectangle:
+            pos: self.pos
+            size: self.size
+
+	BoxLayout:
+		orientation: 'vertical'
+		columns: 4
+		
+		BoxLayout:
+			orientation: 'horizontal'
+		
+			Button:
+				text: ""
+				background_color: (0,0,0,0)
+				on_release: root.confirm_return()
+				size_hint: (.2,9)
+				pos: (0,root.y)
+				
+				Image:
+					center_x: self.parent.center_x -30
+        			center_y: self.parent.center_y
+					source:"assets/img/back_button.png"
+
+			ProgressBar:
+				id: progress_bar
+				size_hint: .6, 1
+				value: 0
+				on_value: root.show_progress_bar(*args)
+				
+				canvas:
+					BorderImage:
+						border: (8, 8, 8, 8)
+						pos: self.x, self.center_y - 8
+						size: self.width, 16
+						source: 'assets/img/progress_bar_bg.png'
+					
+					BorderImage:
+						border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 8))] * 4
+						pos: self.x, self.center_y - 8
+						size: self.width * (self.value / float(self.max)) if self.max else 0, 16
+						source: 'assets/img/progress_bar.jpg'
+
+			Label:
+				id: progress
+				size_hint: .2, 1
+		
+		ToneLayout:	
+			size_hint: 1, 2
+		
+		Label:
+			id: frequency
+			text: '0'
+
+		Slider:
+			id: db_bar
+			cursor_image: 'assets/img/cursor_green.png'
+			cursor_size: (100, 40)
+			background_horizontal: 'assets/img/slider_bg.png'
+			value: root.frequency_range()
+			range: (-330, 330)
+			step: 1
+
+			on_value: root.show_tuning_data(*args)
+			on_value: root.change_db_cursor(*args)
+			
+			on_touch_down: root.disable_touch_event()
+			on_touch_move: root.disable_touch_event()
+			on_touch_up: root.disable_touch_event()

@@ -1,0 +1,16 @@
+#:import hex kivy.utils.get_color_from_hex
+#: import SwapTransition kivy.uix.screenmanager.SwapTransition
+#:include kv/tuning_screen.kv
+#:include kv/home_screen.kv
+
+
+<Manager>:
+	name: 'screenManager'
+	BoxLayout:
+		orientation: 'horizontal'
+		columns: 4
+       
+		ScreenManager:
+			transition: SwapTransition()
+			HomeScreen:
+			TuningScreen: 

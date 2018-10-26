@@ -1,10 +1,13 @@
-from telas import Aplicacao
+from screens import Application
 from detect_tone import get_tone
 from threading import Thread
+from kivy.config import Config
 
+
+Config.read("config.ini")
 
 def run_frontend():
-    Aplicacao().run()
+    Application().run()
 
 
 if __name__ == "__main__":
