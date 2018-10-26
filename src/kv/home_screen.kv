@@ -1,0 +1,124 @@
+<HomeScreen>:
+	name: 'homeScreen'
+	pos_hint:  {'x': 0, 'y': 0}
+	
+	# Light gray
+	background_color: hex('#E0E0E0')
+
+	canvas:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	
+	Menu:
+	
+	BoxLayout:
+		orientation: 'vertical'
+		columns: 4
+		
+		padding: [-10, -80, 10, 50]
+		spacing: 15
+			
+        BoxLayout:
+            orientation: 'horizontal'            
+            padding: [icon_battery.x - 25 , -10, 56, -20]
+            Label:
+                id: battery
+		        text: root.battery_level()
+			    pos_hint:  {'x': 0 , 'y': 0}
+
+		    Image:
+	            id: icon_battery
+			    pos_hint:  {'x': 0, 'y': 0}
+			    source: 'assets/img/battery_100.png'
+			
+		Image:
+			id: logo_icon
+			pos_hint:  {'x': 0.1, 'y': -.5}
+			source: 'assets/img/guitar_icon_black.png'
+			size: 256, 256
+			padding: [0, 0, 0, 20]
+
+		Button:
+			text: 'Afinar'
+			pos_hint:  {'x': 0.35, 'y': 1}
+			size_hint: 0.45, 0.3
+			on_release: root.parent.current = 'tuningScreen'
+			background_normal: ''
+    		
+			# Blue
+			background_color: hex('#0075CE')
+
+		Button:
+			pos_hint:  {'x': 0.35, 'y': 0.3}
+			size_hint: 0.45, 0.3
+			text: 'Afrouxar cordas'
+			background_normal: ''
+    		
+			# Blue
+			background_color: hex('#0075CE')
+		
+		Button:
+			pos_hint:  {'x': 0.35, 'y': 0.3}
+			size_hint: 0.45, 0.3
+			text: 'Tensionar cordas'
+			background_normal: ''
+    		
+			# Blue
+			background_color: hex('#0075CE')
+
+<Menu>:
+	name: 'menu'
+	size_hint_x: 0.15
+
+	canvas:
+		Color:
+			# Medium gray
+			rgba: hex('#808080')
+		
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	
+	FloatLayout:
+		orientation: 'vertical'
+
+		MenuButton:
+			pos_hint: {'y': .6}
+			size_hint_y: .6
+			on_press: root.change_theme()
+			
+			Image:
+				id: theme_icon
+				source: 'assets/img/light_bulb_icon_black.png'
+				allow_stretch: True
+				keep_ratio: True
+				x: self.parent.x
+				y: self.parent.y
+				center: self.parent.center
+		
+		MenuButton:
+			pos_hint: {'y': .8}
+			size_hint_y: .8
+			on_release: root.rasp_shutdown()
+			
+			Image:
+				id: shutdown_icon
+				source: 'assets/img/shutdown_icon_black.png'
+				allow_stretch: True
+				keep_ratio: True
+				center: self.parent.center
+				x: self.parent.x
+				y: self.parent.y
+
+<MenuButton>:
+	canvas:
+		Color:
+			# Medium gray
+			rgba: hex('#808080')
+		
+		Rectangle:
+			pos: self.pos
+			size: self.size

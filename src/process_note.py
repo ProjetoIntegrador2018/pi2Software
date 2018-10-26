@@ -8,9 +8,11 @@ from math import log2, pow
 import time
 import random
 from functools import partial
+import store
 
 
-LabelBase.register(name='DigitalFont',fn_regular="../font/digital-readout.heavy-oblique.ttf")
+
+LabelBase.register(name='DigitalFont',fn_regular="assets/font/digital-readout.heavy-oblique.ttf")
 
 class ToneLayout(FloatLayout):
     def __init__(self,**kwargs):
@@ -33,7 +35,7 @@ class ToneLayout(FloatLayout):
         self.add_widget(self.octave)
 
     def update(self,*args):
-        name,octave = mock_randon_data()
+        name,octave = pitch(store.frequency)
         self.musical_note.setText(str(name))
         self.octave.text = octave 
 
@@ -51,18 +53,11 @@ class NoteLabel(Label):
         self.text = ''
 
 
-#This function is just for mocking purpose
-def mock_randon_data():
-    rand_freq = random.randint(0,100)
-    A4 = 440                                                                                                                           
-    C0 = A4*pow(2, -4.75)  
-    name = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]         
-    try:                                                                                                                                                                    
-        h = round(12*log2(rand_freq/C0))                                                                                                
-        octave = h // 12                                                                                                           
+def pitch(freq):
+        A4 = 440
+        C0 = A4*pow(2, -4.75)
+        name = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+        h = round(12*log2(freq/C0))
+        octave = h // 12
         n = h % 12
         return (name[n],str(octave))
-    except ValueError:
-        return ('---', '') 
-
-
