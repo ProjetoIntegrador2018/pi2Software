@@ -1,4 +1,4 @@
-import random
+import time
 import os
 
 from kivy.app import App
@@ -30,7 +30,7 @@ class Manager(BoxLayout):
 
 class HomeScreen(Screen):
     background_color = ListProperty(None)
-    
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.battery_level, 1)
@@ -41,7 +41,7 @@ class HomeScreen(Screen):
         level = proc.readlines()
         level = str(level)
         level = level.replace(",", "")
-        level = level.replace("]", "")            
+        level = level.replace("]", "")
         level = level.replace("'", "")
         level = level.replace("n", "")
         level = level[0:-1]
@@ -51,8 +51,8 @@ class HomeScreen(Screen):
         return self.ids.battery.text
 
     def battery_level_icons(self, *args):
-        val = self.ids.battery.text.replace("%","")
-        if int(val) > 80:					
+        val = self.ids.battery.text.replace("%", "")
+        if int(val) > 80:
             self.ids.icon_battery.source = 'assets/img/battery_100.png'
         elif int(val) >= 60 and int(val) <= 79:
             self.ids.icon_battery.source = 'assets/img/battery_70.png'
@@ -65,7 +65,7 @@ class HomeScreen(Screen):
         else:
             pass
 
-	
+
 class TuningScreen(Screen):
     background_color = ListProperty(None)
 
@@ -73,35 +73,41 @@ class TuningScreen(Screen):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.update, 1/10)
         Clock.schedule_interval(self.update_progress_bar, 1/10)
-        
+
         self.popup = None
         self.cord = 0
         self.timestep = 0
 
     def confirm_return(self):
-        box = BoxLayout(orientation = 'vertical')
-        box.add_widget(Label(text = "Tem certeza que deseja voltar?\n Isso cancelara seu progresso"))
-        btn1 = Button(text = "Sim")
-        btn2 = Button(text = "Cancelar")
+        box = BoxLayout(orientation='vertical')
+        box.add_widget(
+            Label(
+                text="Tem certeza que deseja voltar?\n Isso cancelará seu progresso"
+            )
+        )
+        btn1 = Button(text="Sim")
+        btn2 = Button(text="Cancelar")
         box.add_widget(btn1)
         box.add_widget(btn2)
 
-        self.popup = Popup(title='Tem certeza que deseja fazer isso ?', title_size= (30), 
-                  title_align = 'center', content = box,
-                  size_hint=(None, None), size=(400, 400),
-                  auto_dismiss = True)
+        self.popup = Popup(title='Tem certeza que deseja fazer isso ?',
+                           title_size=(30),
+                           title_align='center', content=box,
+                           size_hint=(None, None), size=(400, 400),
+                           auto_dismiss=True)
 
-        btn1.bind(on_press = lambda x: self.goToInit())
-        btn2.bind(on_press = self.popup.dismiss)
+        btn1.bind(on_press=lambda x: self.goToInit())
+        btn2.bind(on_press=self.popup.dismiss)
         self.popup.open()
 
     def goToInit(self):
         self.popup.dismiss()
         self.manager.current = "homeScreen"
-    
+
     def show_tuning_data(self, *args):
-        self.ids.frequency.text = str(store.frequency) + ' Hz'+'         Corda: '+ str(self.cord)
-    
+        self.ids.frequency.text = str(
+            store.frequency) + ' Hz'+'         Corda: ' + str(self.cord)
+
     def change_db_cursor(self, *args):
         if int(args[1]) < 0:
             self.ids.db_bar.cursor_image = 'assets/img/cursor_yellow.png'
@@ -109,32 +115,33 @@ class TuningScreen(Screen):
             self.ids.db_bar.cursor_image = 'assets/img/cursor_red.png'
         else:
             self.ids.db_bar.cursor_image = 'assets/img/cursor_green.png'
-    
+
     def frequency_range(self):
-        cord_values = [329,246,196,146,110,82]
+        cord_values = [329, 246, 196, 146, 110, 82]
         self.ids.db_bar.value = int(store.frequency) - cord_values[self.cord]
         if(self.timestep < time.time()):
             if(self.ids.db_bar.value == 0):
-                self.cord = (self.cord+1)%6
+                self.cord = (self.cord + 1) % 6
             self.timestep = time.time() + 3
         return self.ids.db_bar.value
-    
+
     def disable_touch_event(self):
         return 0
-        
+
     def update(self, *args):
         self.ids.db_bar.value = self.frequency_range()
-        
+
     def show_progress_bar(self, *args):
-        self.ids.progress.text = str(int(self.ids.progress_bar.value)) + '% afinado'
+        self.ids.progress.text = str(
+            int(self.ids.progress_bar.value)) + '% afinado'
 
     def update_progress_bar(self, *args):
         if self.ids.progress_bar.value >= 100:
             self.ids.progress.text = 'Afinado!'
             return False
         self.ids.progress_bar.value += 1
-     
-           
+
+
 class Menu(Screen):
     light_theme = True
     dark_theme = False
@@ -147,25 +154,27 @@ class Menu(Screen):
             self.ids.theme_icon.source = 'assets/img/light_bulb_icon_grey.png'
             self.parent.ids.logo_icon.source = 'assets/img/guitar_icon_grey.png'
             self.ids.shutdown_icon.source = 'assets/img/shutdown_icon_grey.png'
-            
+
             # Dark gray
             self.parent.background_color = utils.get_color_from_hex('#404040')
-            
+
             self.light_theme = False
             self.dark_theme = True
         elif self.dark_theme:
             self.ids.theme_icon.source = 'assets/img/light_bulb_icon_black.png'
             self.ids.shutdown_icon.source = 'assets/img/shutdown_icon_black.png'
             self.parent.ids.logo_icon.source = 'assets/img/guitar_icon_black.png'
-            
+
             # Light gray
             self.parent.background_color = utils.get_color_from_hex('#E0E0E0')
-            
+
             self.light_theme = True
             self.dark_theme = False
 
+
 class MenuButton(Button):
     pass
+
 
 class Application(App):
     def build(self):
