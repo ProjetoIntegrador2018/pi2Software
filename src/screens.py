@@ -37,17 +37,15 @@ class HomeScreen(Screen):
         #Clock.schedule_interval(self.battery_level_icons, 1)
 
     def battery_level(self, *args):
-        proc = os.popen("acpi")
+        proc = os.popen("./battery.sh")
         level = proc.readlines()
         level = str(level)
-        level = level.replace(",", "")
+        level = level.replace("[", "")
         level = level.replace("]", "")
         level = level.replace("'", "")
         level = level.replace("n", "")
         level = level[0:-1]
-        level = level.replace("", "")
-        level = level.split(" ")
-        self.ids.battery.text = str(level[3])
+        self.ids.battery.text = str(level+'% ')
         return self.ids.battery.text
 
     def battery_level_icons(self, *args):
