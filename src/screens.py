@@ -33,8 +33,8 @@ class HomeScreen(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.battery_level, 1)
-        Clock.schedule_interval(self.battery_level_icons, 1)
+        #Clock.schedule_interval(self.battery_level, 1)
+        #Clock.schedule_interval(self.battery_level_icons, 1)
 
     def battery_level(self, *args):
         proc = os.popen("acpi")
