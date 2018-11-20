@@ -1,8 +1,11 @@
 import pyaudio
 import numpy as np
 import time
-from math import log2, pow
 import store
+import socket
+
+from math import log2, pow
+
 
 delta82 = -4
 delta110 = 3
@@ -41,6 +44,46 @@ def comput_frequency(audio_data):
     return frequency
 
 
+def get_circuit_frequency():
+    circuit_frequency = 0
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host = "127.0.0.1"
+    port = 8291
+
+    s.connect((host, port))
+    dados = s.recv(1024)
+    print(dados.decode('ascii'))
+
+
+def set_circuit_frequency():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host = ""  #127.0.0.1
+    port = 8291
+
+    msg = "Hello World!"
+
+    s.bind((host, port))
+    s.listen(1)
+
+    while True:
+        c, e = s.accept()
+        print("Conectado com ", e)
+        c.send(msg.encode('ascii'))
+        c.close()
+
+
+def compare_frequency(frequency, circuit_frequency):
+    frequency_error_range = 10
+
+    if abs(frequency - circuit_frequency) >= frequency_error_range:
+        print("frequency error range")
+        return frequency
+    else:
+        print("actual frequency")
+        return (frequency + circuit_frequency)/2
+
+
 def get_tone():
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
@@ -56,12 +99,13 @@ def get_tone():
 
     stream.start_stream()
 
-    aux = []
-    time_aux = 0
-
     while(1):
         audio_data = np.fromstring(stream.read(CHUNK), np.int16)
         frequency = comput_frequency(audio_data)
+        # circuit_frequency = get_circuit_frequency()
+
+        # mean_frequency = compare_frequency(frequency, circuit_frequency)
+
         if(frequency > 0):
             store.frequency = frequency
 
