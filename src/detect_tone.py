@@ -44,40 +44,27 @@ def comput_frequency(audio_data):
     return frequency
 
 
-def get_circuit_frequency():
-    circuit_frequency = 0
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = "127.0.0.1"
-    port = 8291
-    try:
-        s.connect((host, port))
-        dados = s.recv(1024)
-        print(dados.decode('ascii'))
-    except ConnectionRefusedError:
-        print("Connection Refused Error! get_circuit_frequency")
-
-
-def set_circuit_frequency():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = ""  #127.0.0.1
+def fetch_frequency(frequency):
+    host = '169.254.115.63'
     port = 8291
 
-    msg = "Hello World!"
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    s.bind((host, port))
-    s.listen(1)
+    s.connect((host, port))
 
-    while True:
-        c, e = s.accept()
-        print("Conectado com ", e)
-        c.send(msg.encode('ascii'))
-        c.close()
+    msg = s.recv(1024)
+    msg = msg.decode()
+    result = compare_frequency(frequency, msg)
+    result = str(result).encode()
+
+    if result:
+        s.send(result)
 
 
 def compare_frequency(frequency, circuit_frequency):
     frequency_error_range = 10
-
+    circuit_frequency = float(circuit_frequency)	
+  
     if abs(frequency - circuit_frequency) >= frequency_error_range:
         print("frequency error range")
         return frequency
@@ -104,9 +91,8 @@ def get_tone():
     while(1):
         audio_data = np.fromstring(stream.read(CHUNK, exception_on_overflow=False), np.int16)
         frequency = comput_frequency(audio_data)
-        get_circuit_frequency()
-
-        # mean_frequency = compare_frequency(frequency, circuit_frequency)
+        
+        fetch_frequency(frequency)
 
         if(frequency > 0):
             store.frequency = frequency
