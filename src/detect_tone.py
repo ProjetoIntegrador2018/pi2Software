@@ -50,10 +50,12 @@ def get_circuit_frequency():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "127.0.0.1"
     port = 8291
-
-    s.connect((host, port))
-    dados = s.recv(1024)
-    print(dados.decode('ascii'))
+    try:
+        s.connect((host, port))
+        dados = s.recv(1024)
+        print(dados.decode('ascii'))
+    except ConnectionRefusedError:
+        print("Connection Refused Error! get_circuit_frequency")
 
 
 def set_circuit_frequency():
@@ -100,9 +102,9 @@ def get_tone():
     stream.start_stream()
 
     while(1):
-        audio_data = np.fromstring(stream.read(CHUNK), np.int16)
+        audio_data = np.fromstring(stream.read(CHUNK, exception_on_overflow=False), np.int16)
         frequency = comput_frequency(audio_data)
-        # circuit_frequency = get_circuit_frequency()
+        get_circuit_frequency()
 
         # mean_frequency = compare_frequency(frequency, circuit_frequency)
 

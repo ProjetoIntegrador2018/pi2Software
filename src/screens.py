@@ -69,6 +69,7 @@ class TuningScreen(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        Clock.max_iteration = 100 
         Clock.schedule_interval(self.update, 1/10)
         Clock.schedule_interval(self.update_progress_bar, 1/10)
 

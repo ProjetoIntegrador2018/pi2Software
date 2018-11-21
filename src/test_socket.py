@@ -1,5 +1,5 @@
 import socket
-
+import time
 
 def get_circuit_frequency():
     circuit_frequency = 0
@@ -24,7 +24,11 @@ def set_circuit_frequency():
     s.listen(1)
 
     while True:
+        time.sleep(5)
         c, e = s.accept()
         print("Conectado com ", e)
         c.send(msg.encode('ascii'))
         c.close()
+
+
+set_circuit_frequency()
