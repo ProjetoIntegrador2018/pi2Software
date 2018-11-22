@@ -14,6 +14,11 @@ delta196 = 3
 delta246 = 10
 delta329 = 7
 
+host = '169.254.98.224'
+port = 8291
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((host, port))
+
 
 def comput_frequency(audio_data):
     frate = 44100.0
@@ -45,21 +50,15 @@ def comput_frequency(audio_data):
 
 
 def fetch_frequency(frequency):
-    host = '169.254.115.63'
-    port = 8291
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    s.connect((host, port))
-
     msg = s.recv(1024)
     msg = msg.decode()
+    print(msg)
     result = compare_frequency(frequency, msg)
+    # result = 10
     result = str(result).encode()
-
     if result:
         s.send(result)
-
+    
 
 def compare_frequency(frequency, circuit_frequency):
     frequency_error_range = 10
