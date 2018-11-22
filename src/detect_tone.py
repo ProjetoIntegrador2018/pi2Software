@@ -17,8 +17,12 @@ delta329 = 7
 host = '169.254.98.224'
 port = 8291
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((host, port))
-
+try:
+    s.connect((host, port))
+except ConnectionRefusedError:
+    print("Connection Refused Error! get_circuit_frequency")
+except Exception:
+    print("")
 
 def comput_frequency(audio_data):
     frate = 44100.0
@@ -50,25 +54,28 @@ def comput_frequency(audio_data):
 
 
 def fetch_frequency(frequency):
-    msg = s.recv(1024)
-    msg = msg.decode()
-    print(msg)
-    result = compare_frequency(frequency, msg)
-    # result = 10
-    result = str(result).encode()
-    if result:
-        s.send(result)
-    
+    try:
+        msg = s.recv(1024)
+        msg = msg.decode()
+        #print(msg)
+        result = compare_frequency(frequency, msg)
+        # result = 10
+        result = str(result).encode()
+        if result:
+            s.send(result)
+    except  Exception:
+        #print("Error connection socket!")
+        pass
 
 def compare_frequency(frequency, circuit_frequency):
     frequency_error_range = 10
     circuit_frequency = float(circuit_frequency)	
   
     if abs(frequency - circuit_frequency) >= frequency_error_range:
-        print("frequency error range")
+        #print("frequency error range")
         return frequency
     else:
-        print("actual frequency")
+        #print("actual frequency")
         return (frequency + circuit_frequency)/2
 
 
