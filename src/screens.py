@@ -100,12 +100,19 @@ class TuningScreen(Screen):
         self.popup.open()
 
     def goToInit(self):
+        self.cord = 0
+        self.ids.progress_bar.value = 0
         self.popup.dismiss()
         self.manager.current = "homeScreen"
 
     def show_tuning_data(self, *args):
+        if(self.cord<6):
+            aux_cord = self.cord+1
+        else:
+            aux_cord = self.cord
+        
         self.ids.frequency.text = str(
-            store.frequency) + ' Hz'+'         Corda: ' + str(self.cord)
+            store.frequency) + ' Hz'+'         Corda: ' + str(aux_cord)
 
     def change_db_cursor(self, *args):
         if int(args[1]) < 0:
@@ -116,11 +123,11 @@ class TuningScreen(Screen):
             self.ids.db_bar.cursor_image = 'assets/img/cursor_green.png'
 
     def frequency_range(self):
-        cord_values = [329, 246, 196, 146, 110, 82]
+        cord_values = [329, 246, 196, 146, 110, 82, 404]
         self.ids.db_bar.value = int(store.frequency) - cord_values[self.cord]
         if(self.timestep < time.time()):
-            if(self.ids.db_bar.value == 0):
-                self.cord = (self.cord + 1) % 6
+            if(self.ids.db_bar.value == 0 and self.cord != 6):
+                self.cord = (self.cord + 1)
             self.timestep = time.time() + 3
         return self.ids.db_bar.value
 
@@ -138,7 +145,7 @@ class TuningScreen(Screen):
         if self.ids.progress_bar.value >= 100:
             self.ids.progress.text = 'Afinado!'
             return False
-        self.ids.progress_bar.value += 1
+        self.ids.progress_bar.value = self.cord * 16.7
 
 
 class Menu(Screen):
