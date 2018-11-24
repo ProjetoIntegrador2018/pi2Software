@@ -3,18 +3,26 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
-
+#include "motor.h"
+#include <stdio.h>
+#include <time.h>
+#include <wiringPi.h>
 
 #define PORT 8291
-
 #define BUFFER_LENGTH 4096
+#define DIR 28
+#define STEP 29
+#define CW 1
+#define CCW 0
+#define SPR 200
+
 
 int main(void) {
+    wiringPiSetup();
 
     struct sockaddr_in client, server;
 
@@ -72,7 +80,8 @@ int main(void) {
             if((message_len = recv(clientfd, buffer, BUFFER_LENGTH, 0)) > 0) {
                 buffer[message_len] = '\0';
                 printf("Recebido: %s\n", buffer);
-            }
+            	roda_motor();
+             }
 		send(clientfd, freq, strlen(freq), 0);
 
         } while(strcmp(buffer, "fim"));
