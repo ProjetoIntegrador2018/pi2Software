@@ -18,13 +18,14 @@ void roda_motor_CW(void){
 	double atraso = 1;
 
 	int i = 0;
-	digitalWrite(DIR, CW);
+	digitalWrite(DIR, CCW);
 	for(i = 0; i < 50; i++){
 		digitalWrite(STEP, HIGH);
 		delay(atraso);
 		digitalWrite(STEP, LOW);
 		delay(atraso);
 	}
+}
 
 void roda_motor_CCW(void){
 	
@@ -36,13 +37,14 @@ void roda_motor_CCW(void){
 	double atraso = 1;
 
 	int i = 0;
-	digitalWrite(DIR, CCW);
+	digitalWrite(DIR, CW);
 	for(i = 0; i < 50; i++){
 		digitalWrite(STEP, HIGH);
 		delay(atraso);
 		digitalWrite(STEP, LOW);
 		delay(atraso);
 	}
+}
 
 //void compara_frequencia(char frequencia, int corda){
 	

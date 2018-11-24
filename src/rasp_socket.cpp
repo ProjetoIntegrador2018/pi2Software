@@ -8,18 +8,20 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include "motor.h"
-#include <stdio.h>
-#include <time.h>
-#include <wiringPi.h>
 
 #define PORT 8291
+
 #define BUFFER_LENGTH 4096
+
+#include<stdio.h>
+#include<time.h>
+#include<wiringPi.h>
+
 #define DIR 28
 #define STEP 29
 #define CW 1
 #define CCW 0
 #define SPR 200
-
 
 int main(void) {
     wiringPiSetup();
@@ -80,7 +82,7 @@ int main(void) {
             if((message_len = recv(clientfd, buffer, BUFFER_LENGTH, 0)) > 0) {
                 buffer[message_len] = '\0';
                 printf("Recebido: %s\n", buffer);
-            	roda_motor();
+            	roda_motor_CCW();
              }
 		send(clientfd, freq, strlen(freq), 0);
 
