@@ -45,30 +45,3 @@ void roda_motor_CCW(void){
 		delay(atraso);
 	}
 }
-
-//void compara_frequencia(char frequencia, int corda){
-	
-	//if (corda == 329){
-		
-	//}
-
-	//if (corda == 246){
-		
-	//}
-
-	//if (corda == 196){
-		
-	//}
-
-	//if (corda == 146){
-		
-	//}
-
-	//if (corda == 110){
-		
-	//}
-	
-	//if (corda == 82){
-		
-	//}
-//}
