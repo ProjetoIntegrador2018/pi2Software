@@ -14,7 +14,7 @@ delta196 = 3
 delta246 = 10
 delta329 = 7
 
-host = '169.254.98.224'
+host = '169.254.72.67'
 port = 8291
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
