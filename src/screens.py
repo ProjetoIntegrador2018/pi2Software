@@ -124,11 +124,11 @@ class TuningScreen(Screen):
 
     def frequency_range(self):
         cord_values = [329, 246, 196, 146, 110, 82, 404]
-        self.ids.db_bar.value = int(store.frequency) - cord_values[self.cord]
+        self.ids.db_bar.value = abs(int(store.frequency) - cord_values[self.cord])
         if(self.timestep < time.time()):
-            if(self.ids.db_bar.value == 0 and self.cord != 6):
+            if(self.ids.db_bar.value <= 5  and self.cord != 6):
                 self.cord = (self.cord + 1)
-            self.timestep = time.time() + 3
+            self.timestep = time.time() + 1
         return self.ids.db_bar.value
 
     def disable_touch_event(self):
