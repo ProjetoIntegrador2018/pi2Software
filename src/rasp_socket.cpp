@@ -101,6 +101,7 @@
 
 int main(void) {
     wiringPiSetup();
+	
 
     struct sockaddr_in client, server;
 
@@ -159,7 +160,7 @@ int main(void) {
                 buffer[message_len] = '\0';
                 printf("Recebido: %s\n", buffer);
 
-            	roda_motor_CCW(DIR_246, STEP_246);
+            	roda_motor_CW(DIR_BRACO, STEP_BRACO, 50);
              }
 		send(clientfd, freq, strlen(freq), 0);
 

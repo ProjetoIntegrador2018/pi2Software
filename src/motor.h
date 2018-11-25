@@ -28,9 +28,7 @@
 #define CCW 0		// Clock Config
 #define SPR 200		//
 
-
-void roda_motor_CW(int DIR, int STEP){
-	
+void roda_motor_CW(int DIR, int STEP, int qtd){
 
 	pinMode(DIR, OUTPUT);
 	pinMode(STEP, OUTPUT);
@@ -40,7 +38,7 @@ void roda_motor_CW(int DIR, int STEP){
 
 	int i = 0;
 	digitalWrite(DIR, CCW);
-	for(i = 0; i < 30; i++){
+	for(i = 0; i < qtd; i++){
 		digitalWrite(STEP, HIGH);
 		delay(atraso);
 		digitalWrite(STEP, LOW);
@@ -48,7 +46,7 @@ void roda_motor_CW(int DIR, int STEP){
 	}
 }
 
-void roda_motor_CCW(int DIR, int STEP){
+void roda_motor_CCW(int DIR, int STEP, int qtd){
 
 	pinMode(DIR, OUTPUT);
 	pinMode(STEP, OUTPUT);
@@ -58,7 +56,7 @@ void roda_motor_CCW(int DIR, int STEP){
 
 	int i = 0;
 	digitalWrite(DIR, CW);
-	for(i = 0; i < 30; i++){
+	for(i = 0; i < qtd; i++){
 		digitalWrite(STEP, HIGH);
 		delay(atraso);
 		digitalWrite(STEP, LOW);
