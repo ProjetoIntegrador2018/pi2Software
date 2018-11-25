@@ -7,23 +7,16 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <stdio.h>
+#include <time.h>
+#include <wiringPi.h>
 #include "motor.h"
 
 #define PORT 8291
-
 #define BUFFER_LENGTH 4096
 
-#include<stdio.h>
-#include<time.h>
-#include<wiringPi.h>
 
-#define DIR 28
-#define STEP 29
-#define CW 1
-#define CCW 0
-#define SPR 200
-
-void compara_frequencia(char* frequencia){
+/* void compara_frequencia(char* frequencia){
 	
 	float freq = atof(frequencia);
 	int corda = 329;
@@ -35,7 +28,7 @@ void compara_frequencia(char* frequencia){
 	const int corda_110 = 110.00;
 	const int corda_82 = 82.00;
 	
-	const int delta = 10;
+	const int delta = 5;
 
 	if (corda == 329){
 		
@@ -104,7 +97,7 @@ void compara_frequencia(char* frequencia){
 			roda_motor_CW();						
 		}
 	}
-}
+} */
 
 int main(void) {
     wiringPiSetup();
@@ -166,7 +159,7 @@ int main(void) {
                 buffer[message_len] = '\0';
                 printf("Recebido: %s\n", buffer);
 
-            	compara_frequencia(buffer);
+            	roda_motor_CCW(DIR_246, STEP_246);
              }
 		send(clientfd, freq, strlen(freq), 0);
 
