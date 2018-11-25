@@ -3,10 +3,6 @@ import numpy as np
 import time
 import store
 import socket
-import math
-from matplotlib.mlab import find
-
-#from math import log2, pow
 
 
 delta82 = -4
