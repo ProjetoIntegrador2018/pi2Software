@@ -171,5 +171,5 @@ def get_tone():
         if num_frames >= FRAMES_PER_FFT:
             #if(freq<=170 or freq>=160):
             #    freq = freq/2
-
+            fetch_frequency(freq)
             store.frequency = freq
