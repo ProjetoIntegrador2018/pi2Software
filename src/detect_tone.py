@@ -30,7 +30,7 @@ except Exception:
 '''
 def comput_frequency2(signal):
     crossing = [math.copysign(1.0, s) for s in signal]
-    index = find(np.diff(crossing))    
+    index = find(np.diff(crossing))
     f0=round(len(index) *44100 /(2*np.prod(len(signal))))
     return f0
 
@@ -79,8 +79,8 @@ def fetch_frequency(frequency):
 
 def compare_frequency(frequency, circuit_frequency):
     frequency_error_range = 10
-    circuit_frequency = float(circuit_frequency)	
-  
+    circuit_frequency = float(circuit_frequency)
+
     if abs(frequency - circuit_frequency) >= frequency_error_range:
         #print("frequency error range")
         return frequency
@@ -95,8 +95,8 @@ def get_tone():
     # and NOTE_MAX especially for guitar/bass. Probably want to keep
     # FRAME_SIZE and FRAMES_PER_FFT to be powers of two.
 
-    NOTE_MIN = -20   
-    NOTE_MAX = 400       
+    NOTE_MIN = -20
+    NOTE_MAX = 400
     FSAMP = 22050       # Sampling frequency in Hz
     FRAME_SIZE = 2048   # How many samples per frame?
     FRAMES_PER_FFT = 16 # FFT takes average across how many frames?
@@ -132,7 +132,7 @@ def get_tone():
     imin = max(0, int(np.floor(note_to_fftbin(NOTE_MIN-1))))
     imax = min(SAMPLES_PER_FFT, int(np.ceil(note_to_fftbin(NOTE_MAX+1))))
 
-    # Allocate space to run an FFT. 
+    # Allocate space to run an FFT.
     buf = np.zeros(SAMPLES_PER_FFT, dtype=np.float32)
     num_frames = 0
 
@@ -157,7 +157,7 @@ def get_tone():
 
         # Shift the buffer down and new data in
         buf[:-FRAME_SIZE] = buf[FRAME_SIZE:]
-        buf[-FRAME_SIZE:] = np.fromstring(stream.read(FRAME_SIZE), np.int16)
+        buf[-FRAME_SIZE:] = np.fromstring(stream.read(FRAME_SIZE, exception_on_overflow=False), np.int16)
 
         # Run the FFT on the windowed buffer
         fft = np.fft.rfft(buf * window)
@@ -175,5 +175,5 @@ def get_tone():
         if num_frames >= FRAMES_PER_FFT:
             #if(freq<=170 or freq>=160):
             #    freq = freq/2
-                
+
             store.frequency = freq
