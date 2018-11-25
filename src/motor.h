@@ -21,7 +21,7 @@
 #define STEP_246 21	// SI
 
 #define DIR_329 2	// MI MENOR
-#define STEP_329 2	// MI MENOR
+#define STEP_329 3	// MI MENOR
 
 
 #define CW 1		//

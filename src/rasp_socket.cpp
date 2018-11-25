@@ -15,7 +15,7 @@
 #define PORT 8291
 #define BUFFER_LENGTH 4096
 
-int corda = 196;
+int corda = 329;
 void compara_frequencia(char* frequencia){
 	
 	float freq = atof(frequencia);
@@ -27,25 +27,44 @@ void compara_frequencia(char* frequencia){
 	const float corda_146 = 146.00;
 	const float corda_110 = 110.00;
 	const float corda_82 = 82.00;
-	
 	const int delta = 3;
 
-	printf("Frequencia do microfone: %.2f ", freq);
-	if (corda == 196){
+	printf("\nFrequencia do microfone: %.2f ", freq);
+
+	if (corda == 329){
 		
 		// afr
-		if (freq >= corda_196 + delta ){
-			roda_motor_CCW(DIR_196, STEP_196, 30);
+		if (freq >= corda_329 + delta ){
+			roda_motor_CCW(DIR_329, STEP_329, 30);
 			printf(" Afrouxando ");						
 		}
 		// apr
-		else if (freq <= corda_196 - delta ){
-			roda_motor_CW(DIR_196, STEP_196, 30);
+		else if (freq <= corda_329 - delta ){
+			roda_motor_CW(DIR_329, STEP_329, 30);
+			printf(" Apertando ");							
+		}
+		else {
+			printf(" ----- Afinada! Próxima corda ---- ");
+			corda = 246;
+		}
+
+	}
+
+	if (corda == 246){
+		
+		// afr
+		if (freq >= corda_246 + delta ){
+			roda_motor_CCW(DIR_246, STEP_246, 30);
+			printf(" Afrouxando ");						
+		}
+		// apr
+		else if (freq <= corda_246 - delta ){
+			roda_motor_CW(DIR_246, STEP_246, 30);
 			printf(" Apertando ");							
 		}
 		else {
 			printf(" \n\n Afinada! Próxima corda \n\n");
-			corda = 1;
+			corda = 196;
 		}
 
 	}
@@ -64,12 +83,65 @@ void compara_frequencia(char* frequencia){
 		}
 		else {
 			printf(" \n\n Afinada! Próxima corda \n\n");
-			corda = 1;
+			corda = 146;
 		}
 
 	}
+
+	if (corda == 146){
+
+		// afr
+		if (freq >= corda_146 + delta ){
+			roda_motor_CCW(DIR_146, STEP_146, 30);
+			printf(" Afrouxando ");
+		}
+		// apr
+		else if (freq <= corda_146 - delta ){
+			roda_motor_CW(DIR_146, STEP_146, 30);
+			printf(" Apertando ");
+		}
+		else {
+			printf(" \n\n Afinada! Próxima corda \n\n");
+			corda = 110;
+		}
+	}
 	
-	
+	if (corda == 110){
+
+		// afr
+		if (freq >= corda_110 + delta ){
+			roda_motor_CCW(DIR_110, STEP_110, 30);
+			printf(" Afrouxando ");
+		}
+		// apr
+		else if (freq <= corda_110 - delta ){
+			roda_motor_CW(DIR_110, STEP_110, 30);
+			printf(" Apertando ");
+		}
+		else {
+			printf(" \n\n Afinada! Próxima corda \n\n");
+			corda = 0;
+		}
+	}
+
+	/* if (corda == 82){
+
+		// afr
+		if (freq >= corda_82 + delta ){
+			roda_motor_CCW(DIR_82, STEP_82, 30);
+			printf(" Afrouxando ");
+		}
+		// apr
+		else if (freq <= corda_82 - delta ){
+			roda_motor_CW(DIR_82, STEP_82, 30);
+			printf(" Apertando ");
+		}
+		else {
+			printf(" \n\n Afinada! Próxima corda \n\n");
+			corda = 1;
+		}
+	} */
+
 }
 
 int main(void) {
@@ -133,6 +205,7 @@ int main(void) {
                 buffer[message_len] = '\0';
 
             	compara_frequencia(buffer);
+		//roda_motor_CCW(DIR_329, STEP_329, 30);
              }
 		send(clientfd, freq, strlen(freq), 0);
 
