@@ -18,7 +18,7 @@ LabelBase.register(name='DigitalFont',
 class ToneLayout(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.update, 1/1.)
+        Clock.schedule_interval(self.update, 0.5)
 
         self.musical_note = NoteLabel(text='---',
                                       size_hint=(1, 2.5),
