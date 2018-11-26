@@ -34,7 +34,7 @@ void roda_motor_CW(int DIR, int STEP, int qtd){
 	pinMode(STEP, OUTPUT);
 
 	int step_count = SPR;
-	double atraso = 1;
+	double atraso = 60;
 
 	int i = 0;
 	digitalWrite(DIR, CCW);
@@ -52,7 +52,7 @@ void roda_motor_CCW(int DIR, int STEP, int qtd){
 	pinMode(STEP, OUTPUT);
 
 	int step_count = SPR;
-	double atraso = 1;
+	double atraso = 60;
 
 	int i = 0;
 	digitalWrite(DIR, CW);
