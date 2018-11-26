@@ -10,13 +10,15 @@ def get_sound_data(file):
     a_note = wave.wf = wave.open(file, 'rb')
     CHUNK = 2048
 
-    data = np.frombuffer(a_note.readframes(CHUNK), np.int16)
+    #data = np.frombuffer(a_note.readframes(CHUNK), np.int16)
+    
+    data = a_note.readframes(CHUNK)
+    
     return data
 
 
 def test_comput_frequency():
     # Geting Data from wav files
-    data_440 = get_sound_data('src/tests/sound_sample/440hz.wav')
 
     data_82 = get_sound_data('src/tests/sound_sample/82.4hz.wav')
     data_110 = get_sound_data('src/tests/sound_sample/110hz.wav')
@@ -26,18 +28,15 @@ def test_comput_frequency():
     data_329 = get_sound_data('src/tests/sound_sample/329.6hz.wav')
 
     # Computing frequencys
-    frequency_440 = comput_frequency(data_440)
 
-    frequency_82 = comput_frequency(data_82)
-    frequency_110 = comput_frequency(data_110)
-    frequency_146 = comput_frequency(data_146)
-    frequency_196 = comput_frequency(data_196)
-    frequency_246 = comput_frequency(data_246)
-    frequency_329 = comput_frequency(data_329)
+    frequency_82 = comput_frequency(data_82)  *2
+    frequency_110 = comput_frequency(data_110)*2
+    frequency_146 = comput_frequency(data_146)*2
+    frequency_196 = comput_frequency(data_196)*2
+    frequency_246 = comput_frequency(data_246)*2
+    frequency_329 = comput_frequency(data_329)*2
 
-    assert (frequency_440 > 429 and frequency_440 < 431)
-
-    assert (frequency_82 > 81 and frequency_82 < 83)
+    assert (frequency_82 > 80.6 and frequency_82 < 83.4)
     assert (frequency_110 > 109 and frequency_110 < 111)
     assert (frequency_146 > 145 and frequency_146 < 147)
     assert (frequency_196 > 195 and frequency_196 < 197)
