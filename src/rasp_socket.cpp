@@ -145,6 +145,7 @@ void compara_frequencia(char* frequencia){
 
 }
 
+
 int main(void) {
     wiringPiSetup();
 	
@@ -205,7 +206,21 @@ int main(void) {
             if((message_len = recv(clientfd, buffer, BUFFER_LENGTH, 0)) > 0) {
                 buffer[message_len] = '\0';
 		printf("Freq kivy %s", buffer);
-            	compara_frequencia(buffer);
+
+		if (strcmp (buffer, "a") == 0){
+			printf("Afrouxar");
+			manutencao_corda(0);
+			
+		}else if(strcmp(buffer, "t") == 0){
+			printf("Tensionar");
+			manutencao_corda(1);
+		}else if(strcmp(buffer, "c") == 0){
+			manutencao_corda(2);
+		} else {
+			compara_frequencia(buffer);
+		}
+			
+            	//compara_frequencia(buffer);
 		//roda_motor_CW(DIR_246, STEP_246, 15);
              }
 		send(clientfd, freq, strlen(freq), 0);
