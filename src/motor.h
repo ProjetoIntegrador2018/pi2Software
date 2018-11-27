@@ -101,7 +101,9 @@ void manutencao_corda(int direcao){
 		}
 
 	}
-	else{
-		printf("Erro, direcao invalida");
+	else if(direcao == 2){
+		printf("Cancelando!!");
+	} else  {
+		printf("Erro!!");
 	}
 }

@@ -215,6 +215,8 @@ int main(void) {
 			printf("Tensionar");
 			manutencao_corda(1);
 		}else if(strcmp(buffer, "c") == 0){
+			printf("Cancelar");
+
 			manutencao_corda(2);
 		} else {
 			compara_frequencia(buffer);
