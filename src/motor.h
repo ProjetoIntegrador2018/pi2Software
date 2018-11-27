@@ -66,8 +66,8 @@ void roda_motor_CCW(int DIR, int STEP, int qtd){
 
 void manutencao_corda(int direcao){
 	int duracao = 0;
-	const int limite = 30;
-	const int passo = 1;
+	const int limite = 1;
+	const int passo = 30;
 
 	if (direcao == 1){
 
@@ -102,8 +102,8 @@ void manutencao_corda(int direcao){
 
 	}
 	else if(direcao == 2){
-		printf("Cancelando!!");
+		//printf("Cancelando!! \n");
 	} else  {
-		printf("Erro!!");
+		printf("Erro!! \n");
 	}
 }
