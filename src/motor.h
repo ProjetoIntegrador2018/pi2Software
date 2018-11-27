@@ -12,7 +12,7 @@
 #define STEP_146 0	// RE
 
 #define DIR_82 22	// MI MAIOR
-#define STEP_82 33	// MI MAIOR
+#define STEP_82 23	// MI MAIOR
 
 #define DIR_196 12	// SOL
 #define STEP_196 13	// SOL

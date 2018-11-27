@@ -63,6 +63,16 @@ class HomeScreen(Screen):
         else:
             pass
 
+    def set_hold_tight(self):
+        store.hold_tight = True
+
+    def set_loosen(self):
+        store.loosen = True
+
+    def go_tunner(self):
+        store.cancel = False
+        self.manager.current = "tuningScreen"
+
 
 class TuningScreen(Screen):
     background_color = ListProperty(None)
