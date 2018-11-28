@@ -139,7 +139,7 @@ class TuningScreen(Screen):
 	        
 
         if(self.timestep < time.time()):
-            if(aux <= 1  and self.cord != 6):
+            if(aux <= 3  and self.cord != 6):
                 self.cord = (self.cord + 1)
             self.timestep = time.time() + 1
         return self.ids.db_bar.value
