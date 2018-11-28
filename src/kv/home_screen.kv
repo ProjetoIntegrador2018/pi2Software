@@ -45,7 +45,7 @@
 			text: 'Afinar'
 			pos_hint:  {'x': 0.35, 'y': 1}
 			size_hint: 0.45, 0.3
-			on_release: root.parent.current = 'tuningScreen'
+			on_release: root.go_tunner()
 			background_normal: ''
     		
 			# Blue
@@ -55,6 +55,7 @@
 			pos_hint:  {'x': 0.35, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Afrouxar cordas'
+			on_release: root.set_loosen()
 			background_normal: ''
     		
 			# Blue
@@ -64,6 +65,7 @@
 			pos_hint:  {'x': 0.35, 'y': 0.3}
 			size_hint: 0.45, 0.3
 			text: 'Tensionar cordas'
+			on_release: root.set_hold_tight()
 			background_normal: ''
     		
 			# Blue

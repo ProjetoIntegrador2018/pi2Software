@@ -11,8 +11,8 @@
 #define DIR_146 7	// RE
 #define STEP_146 0	// RE
 
-#define DIR_82 22	// MI MAIOR 
-#define STEP_82 33	// MI MAIOR
+#define DIR_82 22	// MI MAIOR
+#define STEP_82 23	// MI MAIOR
 
 #define DIR_196 12	// SOL
 #define STEP_196 13	// SOL
@@ -61,5 +61,49 @@ void roda_motor_CCW(int DIR, int STEP, int qtd){
 		delay(atraso);
 		digitalWrite(STEP, LOW);
 		delay(atraso);
+	}
+}
+
+void manutencao_corda(int direcao){
+	int duracao = 0;
+	const int limite = 1;
+	const int passo = 30;
+
+	if (direcao == 1){
+
+		while(duracao <= limite){
+			printf(" --- Tensionando Corda --- ");
+
+			roda_motor_CW(DIR_329, STEP_329, passo);
+			roda_motor_CW(DIR_246, STEP_246, passo);
+			roda_motor_CW(DIR_196, STEP_196, passo);
+			roda_motor_CW(DIR_146, STEP_146, passo);
+			roda_motor_CW(DIR_110, STEP_110, passo);
+			roda_motor_CW(DIR_82, STEP_82, passo);
+
+			duracao++;
+		}
+
+	}
+	else if (direcao == 0){
+
+		while(duracao <= limite){
+			printf(" --- Afrouxando Corda --- ");
+
+			roda_motor_CCW(DIR_329, STEP_329, passo);
+			roda_motor_CCW(DIR_246, STEP_246, passo);
+			roda_motor_CCW(DIR_196, STEP_196, passo);
+			roda_motor_CCW(DIR_146, STEP_146, passo);
+			roda_motor_CCW(DIR_110, STEP_110, passo);
+			roda_motor_CCW(DIR_82, STEP_82, passo);
+
+			duracao++;
+		}
+
+	}
+	else if(direcao == 2){
+		//printf("Cancelando!! \n");
+	} else  {
+		printf("Erro!! \n");
 	}
 }

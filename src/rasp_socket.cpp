@@ -15,7 +15,7 @@
 #define PORT 8291
 #define BUFFER_LENGTH 4096
 
-int corda = 246;
+int corda = 329;
 void compara_frequencia(char* frequencia){
 	
 	float freq = atof(frequencia);
@@ -145,6 +145,7 @@ void compara_frequencia(char* frequencia){
 
 }
 
+
 int main(void) {
     wiringPiSetup();
 	
@@ -204,8 +205,24 @@ int main(void) {
             int message_len;
             if((message_len = recv(clientfd, buffer, BUFFER_LENGTH, 0)) > 0) {
                 buffer[message_len] = '\0';
-		printf("Freq kivy %s", buffer);
-            	compara_frequencia(buffer);
+		printf("Freq kivy %s \n", buffer);
+
+		if (strcmp (buffer, "a") == 0){
+			printf("Afrouxar \n");
+			manutencao_corda(0);
+			
+		}else if(strcmp(buffer, "t") == 0){
+			printf("Tensionar \n");
+			manutencao_corda(1);
+		}else if(strcmp(buffer, "c") == 0){
+			//printf("Cancelar \n");
+
+			manutencao_corda(2);
+		} else {
+			compara_frequencia(buffer);
+		}
+			
+            	//compara_frequencia(buffer);
 		//roda_motor_CW(DIR_246, STEP_246, 15);
              }
 		send(clientfd, freq, strlen(freq), 0);

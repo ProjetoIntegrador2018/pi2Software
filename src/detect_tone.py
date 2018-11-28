@@ -33,14 +33,26 @@ except ConnectionRefusedError:
 except Exception:
     print("")
 
+def set_option(frequency):
+    if(store.cancel):
+        return ("c").encode()
+
+    if(store.hold_tight):
+        store.hold_tight = False
+        return ("t").encode()
+    elif(store.loosen):
+        store.loosen = False
+        return ("a").encode()
+    else:
+        return str(frequency).encode()
+
+    
+
 def fetch_frequency(frequency):
     try:
         msg = s.recv(1024)
         msg = msg.decode()
-        #print(msg)
-        result = frequency
-        # result = 10
-        result = str(result).encode()
+        result = set_option(frequency)
         if result:
             s.send(result)
     except  Exception:
